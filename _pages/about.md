@@ -15,9 +15,6 @@ Hello! I’m **He Xiao**, a second-year Ph.D. candidate in Electrical and Electr
 
 I’m passionate about building efficient AI systems that deliver real-world impact on edge devices.
 
-### Quick Links
-* [Google Scholar](https://scholar.google.com/citations?user=tjRksc0AAAAJ&hl=zh-CN)
-* [GitHub](https://github.com/HeXiao-55)
-* [CV (PDF)](/files/cv.pdf)  
+
 
 _Last updated: 10 Sep 2025_
