@@ -7,10 +7,17 @@ redirect_from:
   - /about.html
 ---
 
-Hi, I am a PhD student at HKU from (Sep 24). I'm working with [Prof.N.Wong](https://www.eee.hku.hk/~nwong/), concentrating on quantization, Language Models and CIM applications for edge devices.
+Hello! I’m **He Xiao**, a second-year Ph.D. candidate in Electrical and Electronic Engineering at **The University of Hong Kong**, advised by [Prof. Ngai Wong](https://www.eee.hku.hk/~nwong/) and **Prof. Can Li**. My research focuses on bridging advanced AI algorithms with practical high-performance hardware through:
 
+* In-memory computing (CIM) architectures
+* Ultra-low-bit quantization for large language models
+* Hardware–software co-optimization and ASIC design
 
-For more info
-------
-Upcoming....
-Lastest update : 11 sep 2024
+I’m passionate about building efficient AI systems that deliver real-world impact on edge devices.
+
+### Quick Links
+* [Google Scholar](https://scholar.google.com/citations?user=tjRksc0AAAAJ&hl=zh-CN)
+* [GitHub](https://github.com/HeXiao-55)
+* [CV (PDF)](/files/cv.pdf)  
+
+_Last updated: 10 Sep 2025_

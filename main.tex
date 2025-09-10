@@ -1,0 +1,348 @@
+\documentclass[a4paper,11pt]{article}
+
+% Package imports
+\usepackage{latexsym}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{ragged2e}
+\usepackage[empty]{fullpage}
+\usepackage{wrapfig}
+\usepackage{lipsum}
+\usepackage{tabularx}
+\usepackage{titlesec}
+\usepackage{geometry}
+\usepackage{marvosym}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{graphicx}
+\usepackage{cfr-lm}
+\usepackage[T1]{fontenc}
+\usepackage{fontawesome5}
+
+% Color definitions
+\definecolor{darkblue}{RGB}{0,0,139}
+
+% Page layout
+\setlength{\multicolsep}{0pt} 
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\geometry{left=1.4cm, top=0.8cm, right=1.2cm, bottom=1cm}
+\setlength{\footskip}{5pt} % Addressing fancyhdr warning
+
+% Hyperlink setup (moved after fancyhdr to address warning)
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=darkblue,
+    filecolor=darkblue,
+    urlcolor=darkblue,
+}
+
+% Custom box settings
+\usepackage[most]{tcolorbox}
+\tcbset{
+    frame code={},
+    center title,
+    left=0pt,
+    right=0pt,
+    top=0pt,
+    bottom=0pt,
+    colback=gray!20,
+    colframe=white,
+    width=\dimexpr\textwidth\relax,
+    enlarge left by=-2mm,
+    boxsep=4pt,
+    arc=0pt,outer arc=0pt,
+}
+
+% URL style
+\urlstyle{same}
+
+% Text alignment
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Section formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-7pt}]
+
+% Custom commands
+\newcommand{\resumeItem}[2]{
+  \item{
+    \textbf{#1}{\hspace{0.5mm}#2 \vspace{-0.5mm}}
+  }
+}
+
+\newcommand{\resumePOR}[3]{
+\vspace{0.5mm}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+        \textbf{#1}\hspace{0.3mm}#2 & \textit{\small{#3}} 
+    \end{tabular*}
+    \vspace{-2mm}
+}
+
+\newcommand{\resumeSubheading}[4]{
+\vspace{0.5mm}\item
+    \begin{tabular*}{0.98\textwidth}[t]{l@{\extracolsep{\fill}}r}
+        \textbf{#1} & \textit{\footnotesize{#4}} \\
+        \textit{\footnotesize{#3}} &  \footnotesize{#2}\\
+    \end{tabular*}
+    \vspace{-2.4mm}
+}
+
+\newcommand{\resumeProject}[4]{
+\vspace{0.5mm}\item
+    \begin{tabular*}{0.98\textwidth}[t]{l@{\extracolsep{\fill}}r}
+        \textbf{#1} & \textit{\footnotesize{#3}} \\
+        \footnotesize{\textit{#2}} & \footnotesize{#4}
+    \end{tabular*}
+    \vspace{-2.4mm}
+}
+
+\newcommand{\resumeSubItem}[2]{\resumeItem{#1}{#2}\vspace{-4pt}}
+
+\renewcommand{\labelitemi}{$\vcenter{\hbox{\tiny$\bullet$}}$}
+\renewcommand{\labelitemii}{$\vcenter{\hbox{\tiny$\circ$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=*,labelsep=1mm]}
+\newcommand{\resumeHeadingSkillStart}{\begin{itemize}[leftmargin=*,itemsep=1.7mm, rightmargin=2ex]}
+\newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=*,labelsep=1mm,itemsep=0.5mm]}
+
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}\vspace{2mm}}
+\newcommand{\resumeHeadingSkillEnd}{\end{itemize}\vspace{-2mm}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-2mm}}
+\newcommand{\cvsection}[1]{%
+\vspace{2mm}
+\begin{tcolorbox}
+    \textbf{\large #1}
+\end{tcolorbox}
+    \vspace{-4mm}
+}
+
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}%
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}%
+\newcolumntype{C}{>{\centering\arraybackslash}X}%
+
+% Commands for icon sizing and positioning
+\newcommand{\socialicon}[1]{\raisebox{-0.05em}{\resizebox{!}{1em}{#1}}}
+\newcommand{\ieeeicon}[1]{\raisebox{-0.3em}{\resizebox{!}{1.3em}{#1}}}
+
+% Font options
+\newcommand{\headerfonti}{\fontfamily{phv}\selectfont} % Helvetica-like (similar to Arial/Calibri)
+\newcommand{\headerfontii}{\fontfamily{ptm}\selectfont} % Times-like (similar to Times New Roman)
+\newcommand{\headerfontiii}{\fontfamily{ppl}\selectfont} % Palatino (elegant serif)
+\newcommand{\headerfontiv}{\fontfamily{pbk}\selectfont} % Bookman (readable serif)
+\newcommand{\headerfontv}{\fontfamily{pag}\selectfont} % Avant Garde-like (similar to Trebuchet MS)
+\newcommand{\headerfontvi}{\fontfamily{cmss}\selectfont} % Computer Modern Sans Serif
+\newcommand{\headerfontvii}{\fontfamily{qhv}\selectfont} % Quasi-Helvetica (another Arial/Calibri alternative)
+\newcommand{\headerfontviii}{\fontfamily{qpl}\selectfont} % Quasi-Palatino (another elegant serif option)
+\newcommand{\headerfontix}{\fontfamily{qtm}\selectfont} % Quasi-Times (another Times New Roman alternative)
+\newcommand{\headerfontx}{\fontfamily{bch}\selectfont} % Charter (clean serif font)
+
+\begin{document}
+\headerfontiii
+
+% Header
+\begin{center}
+    {\Huge\textbf{He Xiao}}
+\end{center}
+\vspace{-6mm}
+
+\begin{center}
+    \small{
+    +86 18980479369 | \href{mailto:hexiaoriver@connect.hku.hk}{hexiaoriver@connect.hku.hk} / \href{mailto:hxriver@126.com}{hxriver@126.com} | Hong Kong, China
+    }
+\end{center}
+\vspace{-6mm}
+
+\begin{center}
+    \small{
+    {\textcolor{darkblue}{\faGithub}}~\href{https://github.com/HeXiao-55}{github} | 
+    {\textcolor{darkblue}{\faGoogle}}~\href{https://scholar.google.com/citations?user=tjRksc0AAAAJ&hl=zh-CN}{google scholar} | 
+    {\textcolor{darkblue}{\faGlobe}}~\href{https://hxriver.github.io/}{personal website}
+    }
+\end{center}
+
+\vspace{-4mm}
+
+\section{\textbf{Introduction}}
+\vspace{1mm}
+\small{
+I am a second-year Ph.D. candidate in Electrical and Electronic Engineering at the University of Hong Kong, under the supervision of Prof. Ngai Wong and Prof. Can Li. My research centers on developing efficient artificial intelligence systems and AI accelerators, with expertise in in-memory computing, ultra-low-bit quantization, large language models, and hardware–software co-optimization. I am passionate about bridging the gap between advanced AI algorithms and practical, high-performance hardware implementations.
+}
+\vspace{-2mm}
+
+\section{\textbf{Education}}
+\vspace{-0.4mm}
+  \resumeSubHeadingListStart
+  \resumeSubheading
+    {The University of Hong Kong}{Hong Kong, China}
+    {Ph.D. in Electrical and Electronic Engineering}{Sep 2024 -- Aug 2028}
+    \resumeItemListStart
+      \item Advisors: Prof. Ngai Wong, Prof. Can Li
+    \resumeItemListEnd
+
+  \resumeSubheading
+    {The University of Western Australia}{Perth, Australia}
+    {M.Sc. in Electrical and Electronic Engineering}{Jul 2019 -- Nov 2021}
+    \resumeItemListStart
+      \item Advisors: Prof. Wen Lei
+    \resumeItemListEnd
+
+  \resumeSubheading
+    {Southwest University}{Chongqing, China}
+    {B.Eng. in Automation}{Sep 2016 -- Jun 2020}
+    \resumeItemListStart
+      \item Advisors: Prof. Xiaofang Hu
+    \resumeItemListEnd
+  \resumeSubHeadingListEnd
+
+\vspace{-6mm}
+
+\section{\textbf{Academic Experience}}
+\vspace{-0.4mm}
+  \resumeSubHeadingListStart
+  \resumeSubheading
+      {The University of Hong Kong, Factulty of Engineering}{Hong Kong, China}
+      {Teacher Assistant, Math 1853}{2025 Fall}
+
+  \resumeSubheading
+      {Institute of Microelectronics, Southern University of Science and Technology}{Shenzhen, China}
+      {Visiting Scholar, tapeout project collaboration}{Aug 2025 -- Oct 2025}
+      
+  \resumeSubheading
+      {School of Artificial Intelligence, Southwest University}{Chongqing, China}
+      {Research Assistant, team leader}{Jun 2022 -- Jan 2024}
+
+  \resumeSubHeadingListEnd
+
+\vspace{-6mm}
+
+\section{\textbf{Internship Experience}}
+\vspace{-0.4mm}
+  \resumeSubHeadingListStart
+  \resumeSubheading
+      {PIMIC Inc. (USA), Hong Kong Science and Technology Park}{Hong Kong, China}
+      {Research Scientist Intern, Efficient AI \& Edge Deployment}{Sep 2024 -- Aug 2025}
+      \resumeItemListStart
+        \item Led the development of an on-device speech-dialogue chatbot, enabling large-language-model interaction on edge hardware.
+        \item Conducted model fine-tuning and quantization to achieve real-time inference with 4-bit precision.
+        \item Initiated preliminary ASIC research for specialized AI accelerators based on project insights.
+      \resumeItemListEnd
+  \resumeSubHeadingListEnd
+
+\vspace{-6mm}
+
+\section{\textbf{Projects}}
+\vspace{-0.4mm}
+\resumeSubHeadingListStart
+
+\resumeProject
+  {Project A: [Brief Description]}
+  {Tools: [List of tools and technologies used]}
+  {Month Year - Month Year}
+  {{}[\href{https://github.com/your-username/project-a}{\textcolor{darkblue}{\faGithub}}]}
+\resumeItemListStart
+  \item Developed [specific feature/system] for [specific purpose]
+  \item Implemented [specific technology] for [specific goal], achieving [specific result]
+  \item Created [specific component], ensuring [specific benefit]
+  \item Applied [specific method] to analyze [specific aspect]
+\resumeItemListEnd
+
+\resumeProject
+  {Project B: [Brief Description]}
+  {Tools: [List of tools and technologies used]}
+  {Month Year}
+  {{}[\href{https://github.com/your-username/project-b}{\textcolor{darkblue}{\faGithub}}]}
+\resumeItemListStart
+  \item Developed [specific model/system], achieving [specific metric]
+  \item Implemented [specific feature], processing [specific volume] of data
+  \item Created [specific visualization] for [specific purpose]
+  \item Developed [specific component] for easy integration with [specific system]
+\resumeItemListEnd
+
+\resumeSubHeadingListEnd
+
+\section{\textbf{Selected Publications and Patents} \hfill \textcolor{darkblue}{\scriptsize C=Conference, J=Journal, P=Patent}}
+\vspace{0.2mm}
+\small{
+\begin{enumerate}[leftmargin=*, labelsep=0.5em, align=left, widest={\textbf{[P.3]}}, itemindent=0em]
+\item[\textbf{[C.1]}] \textbf{H.~Xiao}, R.~Yang, Q.~Yang, W.~Xu, Z.~Li, Y.~Su, Z.~Liu, H.~Yang, N.~Wong. \textbf{PTQTP: Post-Training Quantization to Trit-Planes for Large Language Models}. \textit{Under review}, NeurIPS 2025.
+\item[\textbf{[C.2]}] \textbf{H.~Xiao}, Q.~Yang, D.~Xie, W.~Xu, W.~Zhou, H.~Liu, Z.~Liu, N.~Wong. \textbf{Exploring Layer-wise Information Effectiveness for Post-Training Quantization in Small Language Models}. \textit{Under review}, AAAI 2026.
+\item[\textbf{[C.3]}] \textbf{H.~Xiao}, Y.~Zhou, D.~Xie, Q.~Cheng, X.~Hu, Z.~Liu, N.~Wong. \textbf{A Unified Compute-In-Memory Framework for Multisensory Emotion Recognition}. \textit{Accepted as poster}, ASP-DAC 2025.
+\item[\textbf{[C.4]}] \textbf{H.~Xiao}, H.~Liu, Z.~Liu, N.~Wong. \textbf{Brain-Inspired Quantized Spiking Neural Networks with Efficient Analog Neurons}. \textit{Accepted as poster}, MIND 2025.
+\item[\textbf{[J.1]}] \textbf{H.~Xiao}, H.~Liu, D.~Cheng, W.~Xu, J.~Xiong, Z.~Liu, N.~Wong. \textbf{HKPIM: A Hybrid Kernel-fused Processing-In-Memory Framework for Efficient Large Language Model Inference}. \textit{IEEE TCAD}, 2025, under review.
+\item[\textbf{[J.2]}] \textbf{H.~Xiao}, D.~Xie, X.~Hu, Y.~Zhou, S.~Duan. \textbf{Brain-Inspired Recognition System Based on Multimodal In-Memory Computing Framework for Edge AI}. \textit{IEEE TCAS-I}, 71(5):2294–2307, 2024.
+\item[\textbf{[J.3]}] \textbf{H.~Xiao}, X.~Hu, T.~Gao, Y.~Zhou, S.~Duan, Y.~Chen. \textbf{Efficient Low-bit Neural Network with Memristor-Based Reconfigurable Circuits}. \textit{IEEE TCAS-II}, 71(1):66–70, 2024.
+\item[\textbf{[J.4]}] \textbf{H.~Xiao}, Y.~Zhou, T.~Gao, S.~Duan, G.~Chen, X.~Hu. \textbf{Memristor-Based Light-Weight Transformer Circuit Implementation for Speech Recognition}. \textit{IEEE JETCAS}, 13(1):344–356, 2023.
+\item[\textbf{[J.5]}] \textbf{H.~Xiao}, H.~Sun, T.~Zhao, Y.~Zhou, X.~Hu. \textbf{Pure-Attention-Based Multi-Function Memristive Neuromorphic Circuit and System}. \textit{International Journal of Bifurcation and Chaos}, 33(9):2330023, 2023.
+\item[\textbf{[J.6]}] Wenhao Zhang* and \textbf{H.~Xiao*}, Y. Zhou, S. Duan, X. Hu, \textbf{A Global Self-Attention Memristive Neural Network for Image Restoration}, \textit{IEEE TETCI}, 8(3):2613-2624,2024.
+\item[\textbf{[P.1]}] Y.~Zhou, \textbf{H.~Xiao}, X.~Hu, H.~Hong, S.~Duan. \textbf{Speech Recognition System Based on Light-Weight Transformer}. Chinese Patent ZL 2023 1 0065728.1.
+\item[\textbf{[P.2]}] Y.~Zhou, \textbf{H.~Xiao}, X.~Hu, H.~Hong, S.~Duan. \textbf{Memristor-Based Text Sentiment Detection System}. Chinese Patent ZL 2023 1 0091466.6.
+\item[\textbf{[P.3]}] X.~Hu, D.~Xie, Y.~Zhou, \textbf{H.~Xiao}. \textbf{Image Restoration Method Based on Brain-Inspired Vision Transformer for Edge ADAS Devices}. Chinese Patent ZL 2023 1 1466352.1.
+\end{enumerate}}  \
+
+\section{\textbf{Skills}}
+\vspace{-0.4mm}
+ \resumeHeadingSkillStart
+  \resumeSubItem{Programming Languages:}{Python, C++, Verilog}
+  \resumeSubItem{AI/Deep Learning Frameworks:}{PyTorch, HuggingFace Transformers, Triton, VLLM}
+  \resumeSubItem{EDA Tools:}{Cadence, Synopsys}
+  \resumeSubItem{Languages:}{English (Fluent), Mandarin (Native)}
+ \resumeHeadingSkillEnd
+
+\section{\textbf{Honors and Awards}}
+\vspace{-0.4mm}
+\resumeItemListStart
+  \item{The University of Hong Kong PGS}
+  \item{Chongqing Outstanding Individual}
+\resumeItemListEnd
+
+
+\section{\textbf{Student Experience}}
+\vspace{-0.4mm}
+\resumeSubHeadingListStart
+
+\resumeProject
+{Chairman}
+{Youth Volunteers Association of Southwest University (University-level Organization)}
+{Jun 2018 - Jun 2019}
+
+\resumeProject
+{Main Commitee Member}
+{Student Association of Southwest University}
+{Jun 2018 - Jun 2019}
+
+\resumeSubHeadingListEnd
+
+
+
+\section{\textbf{Academic and Social Service}}
+\vspace{-0.4mm}
+\resumeSubHeadingListStart
+
+\resumeProject
+  {Reviewer}
+  {IEEE TCAS-I, IEEE TCAS-II, AAAI, NeurIPS}
+  {Sep 2024 - Present}
+
+\resumeProject
+  {Volunteer}
+  {During Bachelor Study at Southwest University}
+  {Sep 2016 - Jun 2019}
+  
+\resumeItemListStart
+  \item Participated in a variety of volunteer service activities, serving groups such as left-behind children, local elderly, and children with special needs. Service organizations included nursing homes, communities, kindergartens, and primary and secondary schools. Assisted in organizing various volunteer publicity activities, with a total service time exceeding 100 hours.
+\resumeItemListEnd
+
+\resumeSubHeadingListEnd
+
+
+
+\end{document}
