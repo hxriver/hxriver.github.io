@@ -73,6 +73,6 @@ Sep 2024 – Aug 2025
 
 ### Quick Links
 {: .text-left}
-- [CV (PDF)](/files/cv.pdf)  
+- [CV (PDF)](/files/CV.pdf)  
 
 _Last updated: 10 Sep 2025_  
