@@ -13,7 +13,9 @@ Hello! I’m **He Xiao**, you can also call me **River**, a second-year Ph.D. st
 * Ultra-low-bit quantization for large language models
 * Hardware–software co-optimization and ASIC design
 
-I’m passionate about building efficient AI systems that deliver real-world impact on edge devices. And feel free to contact to me: hexiaoriver@connect.hku.hk or hxriver@126.com
+*I’m passionate about building efficient AI systems that deliver real-world impact on edge devices*. 
+
+And feel free to contact me: hexiaoriver@connect.hku.hk or hxriver@126.com
 
 
 
