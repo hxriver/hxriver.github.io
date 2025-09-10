@@ -1,0 +1,16 @@
+---
+layout: archive
+title: "Projects"
+permalink: /projects/
+author_profile: true
+---
+
+{% include base_path %}
+
+Below is a selection of research and engineering projects.
+
+<ul>
+{% for post in site.projects reversed %}
+  {% include archive-single.html %}
+{% endfor %}
+</ul>

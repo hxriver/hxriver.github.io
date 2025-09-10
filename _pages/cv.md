@@ -1,6 +1,6 @@
 ---
 layout: archive
-title: "CV"
+title: "About me"
 permalink: /cv/
 author_profile: true
 redirect_from:
@@ -8,6 +8,9 @@ redirect_from:
 ---
 
 {% include base_path %}
+
+{: .text-left}
+- [my resume](/files/CV.pdf)  
 
 ## Education
 {: .text-left}
@@ -27,7 +30,6 @@ Sep 2016 – Jun 2020
 Advisor: Prof. Xiaofang Hu
 
 ---
-
 ## Academic Experience
 {: .text-left}
 **Teacher Assistant – Math 1853**  
@@ -43,7 +45,6 @@ Aug 2025 – Oct 2025
 Jun 2022 – Jan 2024
 
 ---
-
 ## Internship Experience
 {: .text-left}
 **Research Scientist Intern – Efficient AI & Edge Deployment**  
@@ -54,14 +55,6 @@ Sep 2024 – Aug 2025
 - Initiated preliminary ASIC research for specialized AI accelerators
 
 ---
-
-## Honors & Awards
-{: .text-left}
-- The University of Hong Kong PGS  
-- Chongqing Outstanding Individual
-
----
-
 ## Service & Leadership
 {: .text-left}
 - **Reviewer:** IEEE TCAS-I, IEEE TCAS-II, AAAI, NeurIPS (Sep 2024 – Present)  
@@ -70,9 +63,9 @@ Sep 2024 – Aug 2025
 - **Volunteer:** Over 100 hours serving left-behind children, elderly, and children with special needs
 
 ---
-
-### Quick Links
+## Honors & Awards
 {: .text-left}
-- [CV (PDF)](/files/CV.pdf)  
+- The University of Hong Kong PGS  
+- Chongqing Outstanding Individual
 
-_Last updated: 10 Sep 2025_  
+

@@ -23,8 +23,8 @@ author:
   # Biographic information
   avatar           : "profile.png"
   name             : "He Xiao"
-  pronouns         : # example: "she/her"  
-  bio              : "Start from Sep,24 @ HKU"
+  # pronouns         : # example: "she/her"  
+  bio              : "24 Fall @ HKU"
   location         : "Hong Kong ASR, China"
   employer         : "The University of Hong Kong"
   # uri              : # URL
@@ -216,6 +216,9 @@ collections:
     output: true
     permalink: /:collection/:path/
   portfolio:
+    output: true
+    permalink: /:collection/:path/
+  projects:
     output: true
     permalink: /:collection/:path/
   talks:
