@@ -1,0 +1,13 @@
+{% comment %}
+Shared CV block — Awards & Honors.
+Data source: _data/cv.yml
+{% endcomment %}
+
+{% assign cv = site.data.cv %}
+
+<h3 class="sp-sub">Awards &amp; Honors</h3>
+<ul class="sp-plain">
+  {% for honor in cv.honors %}
+    <li>{{ honor }}</li>
+  {% endfor %}
+</ul>

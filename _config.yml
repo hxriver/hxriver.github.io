@@ -8,13 +8,17 @@
 
 # Basic Site Settings
 locale                   : "en-US"
-title                    : "He Xiao's Profile"
-title_separator          : "-"
+title                    : "He Xiao"
+title_separator          : "·"
 name                     : &name "He Xiao"
 description              : &description "PhD Candidate in Electrical and Electronic Engineering at The University of Hong Kong"
 url                      : https://hxriver.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
-repository               : "HeXiao-55/hxriver.github.io"
+repository               : "hxriver/hxriver.github.io"
+
+# GitHub Pages injects jekyll-theme-primer by default. The site ships its
+# own layouts and stylesheet, so the theme only adds an unused asset.
+theme                    : null
 
 # Site Author - The following control what appear as part of the author content on the side bar.
 #               If a field is blank the icon and link will not appear, otherwise it will be shown.
@@ -163,21 +167,30 @@ exclude:
   - .github
   - .jekyll-assets-cache
   - .sass-cache
+  - .DS_Store
+  - "**/.DS_Store"
   - assets/js/_main.js
   - assets/js/plugins
   - assets/js/vendor
   - CHANGELOG
   - Capfile
   - config
+  - CONTRIBUTING.md
   - Gemfile
+  - Gemfile.lock
   - Gruntfile.js
   - gulpfile.js
   - LICENSE
   - log
+  - main.tex
+  - markdown_generator
   - node_modules
   - package.json*
   - Rakefile
   - README
+  - talkmap
+  - talkmap.ipynb
+  - talkmap.py
   - tmp
   - vendor
 keep_files:

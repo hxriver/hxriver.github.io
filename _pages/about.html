@@ -1,0 +1,72 @@
+---
+layout: modern
+permalink: /
+title: "Ph.D. Candidate in Electrical and Electronic Engineering"
+author_profile: false
+excerpt: "He Xiao (River) is a Ph.D. candidate in Electrical and Electronic Engineering at The University of Hong Kong, working on in-memory computing, ultra-low-bit quantization for LLMs, and hardware–software co-design."
+---
+
+{% assign profile = site.data.profile %}
+{% assign pubs   = site.data.publications %}
+{% assign cv     = site.data.cv %}
+
+<!-- ===================================================================
+     Hero
+     =================================================================== -->
+<section class="sp-hero">
+  <div class="sp-hero__copy">
+    <p class="sp-hero__eyebrow">{{ profile.eyebrow }}</p>
+    <h1 class="sp-hero__title">{{ site.author.name }}</h1>
+    <p class="sp-hero__sub">
+      {{ profile.subtitle }}<br>
+      {{ profile.mission }}
+    </p>
+    <div class="sp-hero__links">
+      <a class="sp-chip sp-chip--1" href="mailto:{{ profile.contact.email }}">Email</a>
+      <a class="sp-chip sp-chip--2" href="{{ site.author.googlescholar }}" target="_blank" rel="noopener">Google Scholar</a>
+      <a class="sp-chip sp-chip--3" href="https://github.com/{{ site.author.github }}" target="_blank" rel="noopener">GitHub</a>
+      <a class="sp-chip sp-chip--4" href="{{ '/publications/' | relative_url }}">Publications</a>
+      <a class="sp-chip sp-chip--5" href="{{ '/cv/' | relative_url }}">CV</a>
+      <a class="sp-chip sp-chip--6" href="{{ '/news/' | relative_url }}">News</a>
+    </div>
+  </div>
+  <img class="sp-hero__avatar" src="{{ '/images/profile.png' | relative_url }}" alt="{{ site.author.name }}">
+</section>
+
+<!-- ===================================================================
+     Content card
+     =================================================================== -->
+<article class="sp-card">
+
+  <h2 id="Biography" class="sp-section-title">Biography</h2>
+  {% for paragraph in profile.bio %}
+    <p>{{ paragraph | markdownify | remove: "<p>" | remove: "</p>" }}</p>
+  {% endfor %}
+  <p>
+    A full account of my education, research experience and service is on the
+    <a href="{{ '/about/' | relative_url }}">about page</a>; the
+    <a href="{{ '/cv/' | relative_url }}">CV page</a> has the same in a compact form.
+  </p>
+
+  <h2 id="Recent-News" class="sp-section-title">Recent News</h2>
+  {% include news-list.html collapsed=true %}
+  <p class="sp-more">
+    <a href="{{ '/news/' | relative_url }}">Full news archive &rarr;</a>
+  </p>
+
+  <h2 id="Publications" class="sp-section-title">Publications &amp; Preprints</h2>
+  {% include publication-list.html group="journal" limit=2 %}
+  {% include publication-list.html group="conference" limit=3 %}
+  <p class="sp-more">
+    <a href="{{ '/publications/' | relative_url }}">Full publication list &rarr;</a>
+  </p>
+
+  <h2 id="Experience" class="sp-section-title">Education &amp; Experience</h2>
+  {% include cv-education.html %}
+  {% include cv-experience.html %}
+
+  <h2 id="Awards" class="sp-section-title">Awards &amp; Honors</h2>
+  {% include cv-honors.html %}
+
+  <p class="sp-last-updated">(Last updated on {{ site.time | date: "%b, %Y" }})</p>
+</article>

@@ -1,0 +1,31 @@
+{% comment %}
+Shared CV block — Internship Experience + Service & Leadership.
+Data source: _data/cv.yml
+{% endcomment %}
+
+{% assign cv = site.data.cv %}
+
+<h3 class="sp-sub">Internship</h3>
+<ul class="sp-plain">
+  {% for entry in cv.internship %}
+    <li>
+      <strong>{{ entry.role }}</strong>, {{ entry.org }}, {{ entry.period }}
+      {% if entry.highlights %}
+        <ul class="sp-plain sp-plain--nested">
+          {% for point in entry.highlights %}
+            <li>{{ point }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>
+
+<h3 class="sp-sub">Service &amp; Leadership</h3>
+<ul class="sp-plain">
+  {% for entry in cv.service %}
+    <li>
+      <strong>{{ entry.role }}</strong>, {{ entry.org }}, {{ entry.period }}
+    </li>
+  {% endfor %}
+</ul>

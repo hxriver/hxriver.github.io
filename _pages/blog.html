@@ -1,0 +1,31 @@
+---
+layout: modern
+title: "Blog"
+permalink: /blog/
+page_title: "Blog"
+page_eyebrow: "Writing"
+page_lead: "Notes on in-memory computing, quantization and hardware–software co-design. This page fills up automatically as posts are added to <code>_posts/</code>."
+author_profile: false
+excerpt: "Blog posts and technical notes by He Xiao."
+---
+
+{% assign posts = site.posts %}
+
+<article class="sp-card">
+  {% if posts.size > 0 %}
+    <ul class="sp-entries">
+      {% for post in posts %}
+        <li class="sp-entry">
+          <h3 class="sp-entry__title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+          <p class="sp-entry__meta">{{ post.date | date: "%B %d, %Y" }}</p>
+          {% if post.excerpt %}<p class="sp-entry__text">{{ post.excerpt | markdownify | strip_html | strip_newlines }}</p>{% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="sp-empty">
+      No posts published yet. Add a Markdown file to <code>_posts/</code> and it will appear here, on the homepage, and in the
+      <a href="{{ '/feed.xml' | relative_url }}">RSS feed</a>.
+    </p>
+  {% endif %}
+</article>

@@ -1,12 +1,37 @@
 ---
-layout: archive
+layout: modern
 title: "Teaching"
 permalink: /teaching/
-author_profile: true
+page_title: "Teaching"
+page_eyebrow: "Teaching"
+page_lead: "Courses and workshops. This page also appears on the homepage as soon as <code>_teaching/</code> contains an entry."
+author_profile: false
+excerpt: "Teaching experience of He Xiao at The University of Hong Kong."
 ---
 
-{% include base_path %}
+{% assign items = site.teaching | reverse %}
 
-{% for post in site.teaching reversed %}
-  {% include archive-single.html %}
-{% endfor %}
+<article class="sp-card">
+  {% if items.size > 0 %}
+    <ul class="sp-entries">
+      {% for post in items %}
+        <li class="sp-entry">
+          <h3 class="sp-entry__title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+          <p class="sp-entry__meta">
+            {% if post.type %}{{ post.type }} · {% endif %}{{ post.venue }}
+            {% if post.date %} · {{ post.date | date: "%Y" }}{% endif %}
+          </p>
+          {% if post.excerpt %}<p class="sp-entry__text">{{ post.excerpt | markdownify | strip_html | strip_newlines }}</p>{% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="sp-empty">
+      No teaching entries yet. Add a Markdown file to <code>_teaching/</code> and it will show up here — and on the homepage.
+    </p>
+    <h2 class="sp-section-title">Current role</h2>
+    <ul class="sp-plain">
+      <li>Teaching Assistant — Math 1853, The University of Hong Kong, Faculty of Engineering (Fall 2025)</li>
+    </ul>
+  {% endif %}
+</article>

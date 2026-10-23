@@ -1,0 +1,25 @@
+{% comment %}
+Shared CV block — Education + Academic Experience.
+Data source: _data/cv.yml
+{% endcomment %}
+
+{% assign cv = site.data.cv %}
+
+<h3 class="sp-sub">Education</h3>
+<ul class="sp-plain">
+  {% for entry in cv.education %}
+    <li>
+      <strong>{{ entry.degree }}</strong>, {{ entry.school }}, {{ entry.period }}
+      {% if entry.detail %}<br><span class="sp-dim">{{ entry.detail }}</span>{% endif %}
+    </li>
+  {% endfor %}
+</ul>
+
+<h3 class="sp-sub">Academic Experience</h3>
+<ul class="sp-plain">
+  {% for entry in cv.academic %}
+    <li>
+      <strong>{{ entry.role }}</strong>, {{ entry.org }}, {{ entry.period }}
+    </li>
+  {% endfor %}
+</ul>

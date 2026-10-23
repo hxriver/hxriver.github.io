@@ -1,0 +1,134 @@
+---
+# Standalone layout for the whole site.
+#
+# Deliberately does NOT inherit the theme's `compress` layout: that minifier
+# strips bare <p>/<li>/<div> tags and would break the semantic structure and
+# the .sp-* styling of these pages.
+sitemap: false
+---
+
+{% include base_path %}
+{% assign avatar = site.author.avatar | prepend: "/images/" | relative_url %}
+{% assign scholar = site.author.googlescholar %}
+{% assign github  = site.author.github %}
+{% assign url = page.url %}
+
+<!doctype html>
+<html lang="{{ site.locale | slice: 0,2 }}" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+    {% include seo.html %}
+
+    <link href="{% if site.atom_feed.path %}{{ site.atom_feed.path }}{% else %}{{ '/feed.xml' | relative_url }}{% endif %}" type="application/atom+xml" rel="alternate" title="{{ site.title }} Feed">
+
+    <meta http-equiv="cleartype" content="on">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% comment %} Set the theme before first paint so there is no flash. {% endcomment %}
+    <script>
+      (function () {
+        var stored = null;
+        try { stored = localStorage.getItem("theme"); } catch (e) {}
+        var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.setAttribute("data-theme", stored || (prefersDark ? "dark" : "light"));
+      })();
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+    {% include head/custom.html %}
+  </head>
+
+  <body class="sp-body">
+
+    {% include browser-upgrade.html %}
+
+    <header class="sp-header" id="sp-header">
+      <div class="sp-header__inner" id="sp-header-inner">
+        <a class="sp-brand" href="{{ '/' | relative_url }}">{{ site.author.name }}</a>
+
+        <nav class="sp-nav" id="sp-nav" aria-label="Main navigation">
+          <a href="{{ '/about/' | relative_url }}"       {% if url == '/about/' %}class="is-active"{% endif %}>About</a>
+          <a href="{{ '/publications/' | relative_url }}" {% if url == '/publications/' %}class="is-active"{% endif %}>Publications</a>
+          <a href="{{ '/news/' | relative_url }}"        {% if url == '/news/' %}class="is-active"{% endif %}>News</a>
+          <a href="{{ '/projects/' | relative_url }}"    {% if url == '/projects/' %}class="is-active"{% endif %}>Projects</a>
+          <a href="{{ '/talks/' | relative_url }}"       {% if url == '/talks/' %}class="is-active"{% endif %}>Talks</a>
+          <a href="{{ '/teaching/' | relative_url }}"   {% if url == '/teaching/' %}class="is-active"{% endif %}>Teaching</a>
+          <a href="{{ '/blog/' | relative_url }}"        {% if url == '/blog/' %}class="is-active"{% endif %}>Blog</a>
+          <a href="{{ '/cv/' | relative_url }}"          {% if url == '/cv/' %}class="is-active"{% endif %}>CV</a>
+        </nav>
+
+        <button class="sp-theme-toggle" id="sp-theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle color theme" aria-pressed="false">
+          <span class="sp-theme-toggle__icon sp-theme-toggle__sun" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="14" height="14" role="img">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12" stroke-width="2" fill="none" stroke="currentColor" stroke-linecap="round"></path>
+            </svg>
+          </span>
+          <span class="sp-theme-toggle__icon sp-theme-toggle__moon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="14" height="14" role="img">
+              <path d="M21 14.5A8.5 8.5 0 0 1 9.5 3a9 9 0 1 0 11.5 11.5z" fill="currentColor"></path>
+            </svg>
+          </span>
+          <span class="sp-theme-toggle__thumb" aria-hidden="true"></span>
+        </button>
+
+        <button class="sp-menu-toggle" id="sp-menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="sp-nav">
+          <span class="sp-navicon"></span>
+        </button>
+      </div>
+    </header>
+
+    <main class="sp-main" id="top">
+      {% if page.page_title %}
+        <div class="sp-pagehead">
+          {% if page.page_eyebrow %}<p class="sp-pagehead__eyebrow">{{ page.page_eyebrow }}</p>{% endif %}
+          <h1 class="sp-pagehead__title">{{ page.page_title }}</h1>
+          {% if page.page_lead %}<div class="sp-pagehead__lead">{{ page.page_lead }}</div>{% endif %}
+        </div>
+      {% endif %}
+
+      {{ content }}
+    </main>
+
+    <footer class="sp-footer">
+      <div class="sp-footer__inner">
+        <ul class="sp-footer__links">
+          <li><a href="{{ '/' | relative_url }}">Home</a></li>
+          <li><a href="{{ '/about/' | relative_url }}">About</a></li>
+          <li><a href="{{ '/publications/' | relative_url }}">Publications</a></li>
+          <li><a href="{{ '/news/' | relative_url }}">News</a></li>
+          <li><a href="{{ '/projects/' | relative_url }}">Projects</a></li>
+          <li><a href="{{ '/talks/' | relative_url }}">Talks</a></li>
+          <li><a href="{{ '/teaching/' | relative_url }}">Teaching</a></li>
+          <li><a href="{{ '/blog/' | relative_url }}">Blog</a></li>
+          <li><a href="{{ '/cv/' | relative_url }}">CV</a></li>
+          <li><a href="{{ '/files/CV.pdf' | relative_url }}">CV (PDF)</a></li>
+          <li><a href="{{ '/sitemap/' | relative_url }}">Sitemap</a></li>
+        </ul>
+        <p class="sp-footer__copy">
+          &copy; {{ site.time | date: '%Y' }} {{ site.name | default: site.title }} ·
+          Built with <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp;
+          <a href="https://github.com/academicpages/academicpages.github.io">AcademicPages</a>
+        </p>
+      </div>
+    </footer>
+
+    <a class="sp-to-top" id="sp-to-top" href="#top" aria-label="Back to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    </a>
+
+    <script src="{{ '/assets/js/main.min.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/site.js' | relative_url }}"></script>
+
+    {% include analytics.html %}
+    {% include /comments-providers/scripts.html %}
+
+  </body>
+</html>

@@ -1,16 +1,33 @@
 ---
-layout: archive
+layout: modern
 title: "Talks and presentations"
 permalink: /talks/
-author_profile: true
+page_title: "Talks & Presentations"
+page_eyebrow: "Talks"
+page_lead: "Invited and contributed talks. This page also appears on the homepage as soon as <code>_talks/</code> contains an entry."
+author_profile: false
+excerpt: "Talks and presentations by He Xiao."
 ---
 
-{% if site.talkmap_link == true %}
+{% assign items = site.talks | reverse %}
 
-<p style="text-decoration:underline;"><a href="/talkmap.html">See a map of all the places I've given a talk!</a></p>
-
-{% endif %}
-
-{% for post in site.talks reversed %}
-  {% include archive-single-talk.html %}
-{% endfor %}
+<article class="sp-card">
+  {% if items.size > 0 %}
+    <ul class="sp-entries">
+      {% for post in items %}
+        <li class="sp-entry">
+          <h3 class="sp-entry__title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+          <p class="sp-entry__meta">
+            {% if post.type %}{{ post.type }} · {% endif %}{{ post.venue }}
+            {% if post.date %} · {{ post.date | date: "%Y" }}{% endif %}
+          </p>
+          {% if post.excerpt %}<p class="sp-entry__text">{{ post.excerpt | markdownify | strip_html | strip_newlines }}</p>{% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="sp-empty">
+      No talks published yet. Add a Markdown file to <code>_talks/</code> and it will show up here — and on the homepage.
+    </p>
+  {% endif %}
+</article>

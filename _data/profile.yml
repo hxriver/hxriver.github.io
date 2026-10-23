@@ -1,0 +1,36 @@
+# ---------------------------------------------------------------------------
+# Profile copy for the homepage hero and biography.
+# Edit the prose here — the pages pick it up automatically.
+# ---------------------------------------------------------------------------
+
+nickname: "River"
+eyebrow: "Ph.D. Student @ The University of Hong Kong"
+role: "Ph.D. Candidate in Electrical and Electronic Engineering"
+affiliation: "The University of Hong Kong"
+advisors: "Advised by Prof. Ngai Wong and Prof. Can Li"
+
+subtitle: "Bridging advanced AI algorithms with practical high-performance hardware."
+mission: "Mission: make large AI models cheap enough to run anywhere."
+
+bio:
+  - "I am a Ph.D. student in **Electrical and Electronic Engineering** at **The University of Hong Kong**, where I work on making large AI models cheap enough to run everywhere. Before that I was a research scientist intern at **PIMIC Inc.**, working on on-device speech dialogue, 4-bit inference and preliminary ASIC design."
+  - "My research sits at the intersection of algorithms and circuits: **in-memory computing** architectures, **ultra-low-bit quantization** for large language models, and **hardware–software co-optimization** for ASIC design. I am passionate about building efficient AI systems that deliver real-world impact on edge devices."
+
+interests:
+  - icon: "fa-solid fa-microchip"
+    title: "In-Memory Computing"
+    text: "CIM architectures that move computation into the memory array, collapsing the data-movement bottleneck that dominates modern AI accelerators."
+
+  - icon: "fa-solid fa-compress"
+    title: "Ultra-Low-Bit Quantization"
+    text: "Post-training quantization down to 2–4 bits, including trit-plane representations that push LLM inference into genuinely low-precision territory."
+
+  - icon: "fa-solid fa-sliders"
+    title: "Hardware–Software Co-Design"
+    text: "Joint algorithm-and-ASIC design — from kernel fusion and token-aware dataflow to tape-out ready circuits that exploit memristor devices."
+
+contact:
+  email: "hexiaoriver@connect.hku.hk"
+  email_alt: "hxriver@126.com"
+  location: "Hong Kong SAR, China"
+  employer: "The University of Hong Kong"

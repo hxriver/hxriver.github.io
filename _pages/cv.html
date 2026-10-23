@@ -1,0 +1,25 @@
+---
+layout: modern
+title: "Curriculum Vitae"
+permalink: /cv/
+page_title: "Curriculum Vitae"
+page_eyebrow: "About me"
+page_lead: "A printable version is available as <a href=\"/files/CV.pdf\">CV.pdf</a>."
+author_profile: false
+excerpt: "Curriculum vitae of He Xiao, Ph.D. candidate in Electrical and Electronic Engineering at The University of Hong Kong."
+redirect_from:
+  - /resume
+  - /resume/
+  - /resume.html
+---
+
+<article class="sp-card">
+  {% include cv-education.html %}
+  {% include cv-experience.html %}
+  {% include cv-honors.html %}
+
+  <p class="sp-more">
+    <a href="{{ '/files/CV.pdf' | relative_url }}">Download the PDF version &rarr;</a>
+  </p>
+  <p class="sp-last-updated">(Last updated on {{ site.time | date: "%b, %Y" }})</p>
+</article>

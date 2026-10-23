@@ -1,0 +1,30 @@
+{% comment %}
+Shared news feed.
+
+  include collapsed  -> start collapsed, showing the first 4 entries
+  include limit     -> cap the number of entries
+
+Data source: _data/news.yml
+{% endcomment %}
+
+{% assign news = site.data.news %}
+{% if include.limit %}{% assign news = news | slice: 0, include.limit %}{% endif %}
+
+{% if include.collapsed %}
+  <div class="sp-news-header">
+    <button class="sp-news-toggle" type="button" data-target="#sp-news-list" aria-expanded="false">Show all</button>
+  </div>
+  <ul id="sp-news-list" class="sp-news-list is-collapsed">
+{% else %}
+  <ul id="sp-news-list" class="sp-news-list">
+{% endif %}
+
+  {% for item in news %}
+    <li>
+      <span class="sp-news-date">{{ item.date }}</span> — {{ item.text }}
+      {% for link in item.links %}
+        [<a href="{{ link.url }}" target="_blank" rel="noopener">{{ link.label }}</a>]
+      {% endfor %}
+    </li>
+  {% endfor %}
+</ul>

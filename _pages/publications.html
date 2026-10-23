@@ -1,32 +1,18 @@
 ---
-layout: archive
+layout: modern
 title: "Selected Publications"
 permalink: /publications/
-author_profile: true
+page_title: "Publications & Preprints"
+page_eyebrow: "Publications"
+page_lead: "Journal articles, conference papers and granted Chinese patents. The same list is rendered on the homepage from a single data file."
+author_profile: false
+excerpt: "Publication list of He Xiao, Ph.D. candidate in Electrical and Electronic Engineering at The University of Hong Kong."
 ---
 
-<!-- {% include base_path %} -->
+<article class="sp-card">
+  {% include publication-list.html group="journal" heading=true %}
+  {% include publication-list.html group="conference" heading=true %}
+  {% include publication-list.html group="patents" heading=true %}
 
-<h2>Journal Articles</h2>
-<ol class="bib">
-  <li><strong>H. Xiao</strong>, D. Xie, X. Hu, Y. Zhou, S. Duan. <em>Brain-Inspired Recognition System Based on Multimodal In-Memory Computing Framework for Edge AI</em>. <strong>IEEE TCAS-I</strong>, 71(5):2294–2307, 2024.</li>
-  <li><strong>H. Xiao</strong>, X. Hu, T. Gao, Y. Zhou, S. Duan, Y. Chen. <em>Efficient Low-bit Neural Network with Memristor-Based Reconfigurable Circuits</em>. <strong>IEEE TCAS-II</strong>, 71(1):66–70, 2024.</li>
-  <li><strong>H. Xiao</strong>, Y. Zhou, T. Gao, S. Duan, G. Chen, X. Hu. <em>Memristor-Based Light-Weight Transformer Circuit Implementation for Speech Recognition</em>. <strong>IEEE JETCAS</strong>, 13(1):344–356, 2023.</li>
-  <li><strong>H. Xiao</strong>, H. Sun, T. Zhao, Y. Zhou, X. Hu. <em>Pure-Attention-Based Multi-Function Memristive Neuromorphic Circuit and System</em>. <strong>Int. J. Bifurcation Chaos</strong>, 33(9):2330023, 2023.</li>
-</ol>
-
-<h2>Conference Papers</h2>
-<ol class="bib">
-  <li><strong>H. Xiao</strong>, R. Yang, Q. Yang, W. Xu, Z. Li, Y. Su, Z. Liu, H. Yang, N. Wong. <em>PTQTP: Post-Training Quantization to Trit-Planes for Large Language Models</em>. <strong><a href="https://arxiv.org/abs/2509.16989">arxiv:2509.16989</a></strong> (under review).</li>
-  <li><strong>H. Xiao</strong>, Q. Yang, D. Xie, W. Xu, W. Zhou, H. Liu, Z. Liu, N. Wong. <em>Exploring Layer-wise Information Effectiveness for Post-Training Quantization in Small Language Models</em>. <strong><a href="https://arxiv.org/abs/2508.03332">arxiv:2508.03332</a></strong> (under review).</li>
-  <li><strong>H. Xiao</strong>, H. Liu, D. Cheng, W. Xu, J. Xiong, Z. Liu, N. Wong. <em>TIA: Token-Aware In-Memory Attention Architecture for Large Language Models</em>. (under review).</li>
-  <li><strong>H. Xiao</strong>, Y. Zhou, D. Xie, Q. Cheng, X. Hu, Z. Liu, N. Wong. <em>A Unified Compute-In-Memory Framework for Multisensory Emotion Recognition</em>. <strong>ASP-DAC 2025</strong> (poster).</li>
-  <li><strong>H. Xiao</strong>, H. Liu, Z. Liu, N. Wong. <em>Brain-Inspired Quantized Spiking Neural Networks with Efficient Analog Neurons</em>. <strong>MIND 2025</strong> (best poster).</li>
-</ol>
-
-<h2>Patents</h2>
-<ol class="bib">
-  <li>Y. Zhou, <strong>H. Xiao</strong>, X. Hu, H. Hong, S. Duan. <em>Speech Recognition System Based on Light-Weight Transformer</em>. Chinese Patent ZL 2023 1 0065728.1.</li>
-  <li>Y. Zhou, <strong>H. Xiao</strong>, X. Hu, H. Hong, S. Duan. <em>Memristor-Based Text Sentiment Detection System</em>. Chinese Patent ZL 2023 1 0091466.6.</li>
-  <li>X. Hu, D. Xie, Y. Zhou, <strong>H. Xiao</strong>. <em>Image Restoration Method Based on Brain-Inspired Vision Transformer for Edge ADAS Devices</em>. Chinese Patent ZL 2023 1 1466352.1.</li>
-</ol>
+  <p class="sp-last-updated">(Last updated on {{ site.time | date: "%b, %Y" }})</p>
+</article>

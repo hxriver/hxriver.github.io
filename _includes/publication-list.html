@@ -1,0 +1,57 @@
+{% comment %}
+Shared publication list.
+
+  include group  -> journal | conference | patents   (default: all three)
+  include limit  -> cap the number of entries in the group
+  include heading -> render a section title above the list (default false)
+
+Rendered by the homepage and by /publications/ so the two never drift apart.
+Data source: _data/publications.yml
+{% endcomment %}
+
+{% assign pubs = site.data.publications %}
+{% assign group = include.group %}
+{% assign limit = include.limit %}
+
+{% if group == nil or group == "journal" %}
+  {% assign list = pubs.journal %}
+  {% assign heading = "Journal Articles" %}
+{% elsif group == "conference" %}
+  {% assign list = pubs.conference %}
+  {% assign heading = "Conference Papers" %}
+{% else %}
+  {% assign list = pubs.patents %}
+  {% assign heading = "Patents" %}
+{% endif %}
+
+{% if include.heading %}<h2 class="sp-section-title">{{ heading }}</h2>{% endif %}
+
+<ul class="sp-pub-list">
+  {% for pub in list %}
+    {% if limit == nil or forloop.index <= limit %}
+      <li>
+        <p class="sp-pub-title">{{ pub.title }}</p>
+        <ul>
+          <li>
+            {% assign parts = pub.authors | split: "**" %}
+            {% for part in parts %}{% if forloop.index0 == 1 %}<b>{{ part }}</b>{% else %}{{ part }}{% endif %}{% endfor %}
+          </li>
+          <li>
+            <em class="sp-pub-venue">
+              {%- if pub.venue -%}
+                {{ pub.venue }}{% if pub.locator %}, {{ pub.locator }}{% endif %}{% if group == "conference" %} {{ pub.year }}{% endif %}
+              {%- else -%}
+                {{ pub.year }}
+              {%- endif -%}
+            </em>
+            <span class="sp-pub-tag sp-tag--{{ pub.tag | downcase }}">{{ pub.tag }}</span>
+            {% if pub.note %}<span class="sp-pub-tag sp-tag--note">{{ pub.note }}</span>{% endif %}
+            {% for link in pub.links %}
+              [<a href="{{ link.url }}" target="_blank" rel="noopener">{{ link.label }}</a>]
+            {% endfor %}
+          </li>
+        </ul>
+      </li>
+    {% endif %}
+  {% endfor %}
+</ul>

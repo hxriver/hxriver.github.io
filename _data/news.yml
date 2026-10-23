@@ -1,0 +1,49 @@
+# ---------------------------------------------------------------------------
+# Recent news / updates feed.
+#
+# Consumed by:
+#   _pages/about.html   (the homepage, section #Recent-News — first 4 shown)
+#   _pages/news.html    (the standalone /news/ page — full archive)
+#
+# Entries are listed newest first. Keep every line traceable to a fact that
+# also appears in _data/publications.yml or _data/cv.yml.
+# ---------------------------------------------------------------------------
+
+- date: "2025.09"
+  text: "PTQTP — post-training quantization to trit-planes for large language models — is now available on arXiv."
+  links:
+    - label: "arXiv"
+      url: "https://arxiv.org/abs/2509.16989"
+
+- date: "2025.08"
+  text: "Joined the Institute of Microelectronics, Southern University of Science and Technology as a visiting scholar for a tape-out project collaboration (Aug – Oct 2025)."
+
+- date: "2025"
+  text: "Brain-Inspired Quantized Spiking Neural Networks with Efficient Analog Neurons received the best poster award at MIND 2025."
+
+- date: "2025"
+  text: "A Unified Compute-In-Memory Framework for Multisensory Emotion Recognition was presented at ASP-DAC 2025."
+
+- date: "2025"
+  text: "Served as a teaching assistant for Math 1853 at the Faculty of Engineering, The University of Hong Kong (Fall 2025)."
+
+- date: "2024.09"
+  text: "Started the Ph.D. programme in Electrical and Electronic Engineering at The University of Hong Kong, advised by Prof. Ngai Wong and Prof. Can Li."
+
+- date: "2024.09"
+  text: "Started reviewing for IEEE TCAS-I, IEEE TCAS-II, AAAI and NeurIPS."
+
+- date: "2024.09"
+  text: "Joined PIMIC Inc. as a research scientist intern, working on on-device speech-dialogue LLMs, 4-bit inference and preliminary ASIC design (Sep 2024 – Aug 2025)."
+
+- date: "2024"
+  text: "Brain-Inspired Recognition System Based on Multimodal In-Memory Computing Framework for Edge AI was published in IEEE TCAS-I 71(5)."
+
+- date: "2024"
+  text: "Efficient Low-bit Neural Network with Memristor-Based Reconfigurable Circuits was published in IEEE TCAS-II 71(1)."
+
+- date: "2023"
+  text: "Memristor-Based Light-Weight Transformer Circuit Implementation for Speech Recognition was published in IEEE JETCAS 13(1)."
+
+- date: "2023"
+  text: "Pure-Attention-Based Multi-Function Memristive Neuromorphic Circuit and System was published in the International Journal of Bifurcation and Chaos 33(9)."

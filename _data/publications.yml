@@ -1,0 +1,117 @@
+# ---------------------------------------------------------------------------
+# Single source of truth for the publication list.
+#
+# Consumed by:
+#   _pages/about.html        (the homepage, section #Publications)
+#   _pages/publications.html (the standalone /publications/ page)
+#
+# Schema per entry
+#   title    : string, required
+#   authors  : string, required — wrap the author to emphasise in **...**
+#   venue    : string, required (journal / conference abbreviation)
+#   locator  : string, optional (volume(issue):pages)
+#   year     : number, required
+#   tag      : Journal | Conference | Preprint | Patent  (badge)
+#   note     : string, optional (rendered next to the tag)
+#   links    : list of { label, url }, optional
+# ---------------------------------------------------------------------------
+
+journal:
+  - title: "HKPIM: A Hybrid Kernel-fused Processing-In-Memory Framework for Efficient Large Language Model Inference"
+    authors: "**H. Xiao**, H. Liu, D. Cheng, W. Xu, J. Xiong, Z. Liu, N. Wong"
+    venue: "IEEE TCAD"
+    year: 2025
+    tag: "Journal"
+    note: "Under review"
+
+  - title: "Brain-Inspired Recognition System Based on Multimodal In-Memory Computing Framework for Edge AI"
+    authors: "**H. Xiao**, D. Xie, X. Hu, Y. Zhou, S. Duan"
+    venue: "IEEE TCAS-I"
+    locator: "71(5):2294–2307"
+    year: 2024
+    tag: "Journal"
+
+  - title: "Efficient Low-bit Neural Network with Memristor-Based Reconfigurable Circuits"
+    authors: "**H. Xiao**, X. Hu, T. Gao, Y. Zhou, S. Duan, Y. Chen"
+    venue: "IEEE TCAS-II"
+    locator: "71(1):66–70"
+    year: 2024
+    tag: "Journal"
+
+  - title: "Memristor-Based Light-Weight Transformer Circuit Implementation for Speech Recognition"
+    authors: "**H. Xiao**, Y. Zhou, T. Gao, S. Duan, G. Chen, X. Hu"
+    venue: "IEEE JETCAS"
+    locator: "13(1):344–356"
+    year: 2023
+    tag: "Journal"
+
+  - title: "Pure-Attention-Based Multi-Function Memristive Neuromorphic Circuit and System"
+    authors: "**H. Xiao**, H. Sun, T. Zhao, Y. Zhou, X. Hu"
+    venue: "Int. J. Bifurcation Chaos"
+    locator: "33(9):2330023"
+    year: 2023
+    tag: "Journal"
+
+conference:
+  - title: "TIA: Token-Aware In-Memory Attention Architecture for Large Language Models"
+    authors: "**H. Xiao**, H. Liu, D. Cheng, W. Xu, J. Xiong, Z. Liu, N. Wong"
+    venue: ""
+    year: 2026
+    tag: "Preprint"
+    note: "Under review"
+
+  - title: "Exploring Layer-wise Information Effectiveness for Post-Training Quantization in Small Language Models"
+    authors: "**H. Xiao**, Q. Yang, D. Xie, W. Xu, W. Zhou, H. Liu, Z. Liu, N. Wong"
+    venue: "AAAI"
+    year: 2026
+    tag: "Preprint"
+    note: "Under review"
+    links:
+      - label: "arXiv"
+        url: "https://arxiv.org/abs/2508.03332"
+
+  - title: "PTQTP: Post-Training Quantization to Trit-Planes for Large Language Models"
+    authors: "**H. Xiao**, R. Yang, Q. Yang, W. Xu, Z. Li, Y. Su, Z. Liu, H. Yang, N. Wong"
+    venue: "NeurIPS"
+    year: 2025
+    tag: "Preprint"
+    note: "Under review"
+    links:
+      - label: "arXiv"
+        url: "https://arxiv.org/abs/2509.16989"
+
+  - title: "A Unified Compute-In-Memory Framework for Multisensory Emotion Recognition"
+    authors: "**H. Xiao**, Y. Zhou, D. Xie, Q. Cheng, X. Hu, Z. Liu, N. Wong"
+    venue: "ASP-DAC"
+    year: 2025
+    tag: "Conference"
+    note: "Poster"
+
+  - title: "Brain-Inspired Quantized Spiking Neural Networks with Efficient Analog Neurons"
+    authors: "**H. Xiao**, H. Liu, Z. Liu, N. Wong"
+    venue: "MIND"
+    year: 2025
+    tag: "Conference"
+    note: "Best poster"
+
+patents:
+  - title: "Speech Recognition System Based on Light-Weight Transformer"
+    authors: "Y. Zhou, **H. Xiao**, X. Hu, H. Hong, S. Duan"
+    venue: "Chinese Patent"
+    locator: "ZL 2023 1 0065728.1"
+    year: 2023
+    tag: "Patent"
+
+  - title: "Memristor-Based Text Sentiment Detection System"
+    authors: "Y. Zhou, **H. Xiao**, X. Hu, H. Hong, S. Duan"
+    venue: "Chinese Patent"
+    locator: "ZL 2023 1 0091466.6"
+    year: 2023
+    tag: "Patent"
+
+  - title: "Image Restoration Method Based on Brain-Inspired Vision Transformer for Edge ADAS Devices"
+    authors: "X. Hu, D. Xie, Y. Zhou, **H. Xiao**"
+    venue: "Chinese Patent"
+    locator: "ZL 2023 1 1466352.1"
+    year: 2023
+    tag: "Patent"

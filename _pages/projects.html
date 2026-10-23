@@ -1,16 +1,30 @@
 ---
-layout: archive
+layout: modern
 title: "Projects"
 permalink: /projects/
-author_profile: true
+page_title: "Projects"
+page_eyebrow: "Projects"
+page_lead: "Research and engineering projects. This page also appears on the homepage as soon as <code>_projects/</code> contains an entry."
+author_profile: false
+excerpt: "Research and engineering projects by He Xiao."
 ---
 
-{% include base_path %}
+{% assign items = site.projects | reverse %}
 
-Below is a selection of research and engineering projects.
-
-<ul>
-{% for post in site.projects reversed %}
-  {% include archive-single.html %}
-{% endfor %}
-</ul>
+<article class="sp-card">
+  {% if items.size > 0 %}
+    <ul class="sp-entries">
+      {% for post in items %}
+        <li class="sp-entry">
+          <h3 class="sp-entry__title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+          {% if post.date %}<p class="sp-entry__meta">{{ post.date | date: "%Y" }}</p>{% endif %}
+          {% if post.excerpt %}<p class="sp-entry__text">{{ post.excerpt | markdownify | strip_html | strip_newlines }}</p>{% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="sp-empty">
+      No projects published yet. Add a Markdown or HTML file to <code>_projects/</code> and it will show up here — and on the homepage.
+    </p>
+  {% endif %}
+</article>

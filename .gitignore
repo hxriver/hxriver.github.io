@@ -10,3 +10,12 @@ Gemfile.lock
 # Ingore files created by npm
 node_modules
 package-lock.json
+
+# Jekyll build cache
+.jekyll-metadata
+.jekyll-cache/
+.sass-cache/
+
+# macOS noise
+.DS_Store
+**/.DS_Store

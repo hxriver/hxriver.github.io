@@ -1,0 +1,76 @@
+---
+layout: modern
+title: "About"
+permalink: /about/
+page_title: "About Me"
+page_eyebrow: "About"
+page_lead: "Biography, research interests, and the path that led here."
+author_profile: false
+excerpt: "Biography and research interests of He Xiao, Ph.D. candidate in Electrical and Electronic Engineering at The University of Hong Kong."
+---
+
+{% assign profile = site.data.profile %}
+{% assign cv     = site.data.cv %}
+
+<article class="sp-card">
+
+  <h2 id="Biography" class="sp-section-title">Biography</h2>
+  {% for paragraph in profile.bio %}
+    <p>{{ paragraph | markdownify | remove: "<p>" | remove: "</p>" }}</p>
+  {% endfor %}
+
+  <h2 id="Research-Interests" class="sp-section-title">Research Interests</h2>
+  <ul class="sp-pub-list">
+    {% for item in profile.interests %}
+      <li>
+        <p class="sp-pub-title"><i class="{{ item.icon }}" aria-hidden="true"></i> {{ item.title }}</p>
+        <ul><li>{{ item.text }}</li></ul>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <h2 id="Education" class="sp-section-title">Education</h2>
+  <ul class="sp-plain">
+    {% for entry in cv.education %}
+      <li>
+        <strong>{{ entry.degree }}</strong>, {{ entry.school }}, {{ entry.period }}
+        {% if entry.detail %}<br><span class="sp-dim">{{ entry.detail }}</span>{% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+
+  <h2 id="Experience" class="sp-section-title">Experience</h2>
+
+  <h3 class="sp-sub">Academic Experience</h3>
+  <ul class="sp-plain">
+    {% for entry in cv.academic %}
+      <li><strong>{{ entry.role }}</strong>, {{ entry.org }}, {{ entry.period }}</li>
+    {% endfor %}
+  </ul>
+
+  <h3 class="sp-sub">Internship</h3>
+  <ul class="sp-plain">
+    {% for entry in cv.internship %}
+      <li>
+        <strong>{{ entry.role }}</strong>, {{ entry.org }}, {{ entry.period }}
+        {% if entry.highlights %}
+          <ul class="sp-plain sp-plain--nested">
+            {% for point in entry.highlights %}<li>{{ point }}</li>{% endfor %}
+          </ul>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+
+  <h2 id="Service" class="sp-section-title">Service &amp; Leadership</h2>
+  <ul class="sp-plain">
+    {% for entry in cv.service %}
+      <li><strong>{{ entry.role }}</strong>, {{ entry.org }}, {{ entry.period }}</li>
+    {% endfor %}
+  </ul>
+
+  <h2 id="Awards" class="sp-section-title">Awards &amp; Honors</h2>
+  {% include cv-honors.html %}
+
+  <p class="sp-last-updated">(Last updated on {{ site.time | date: "%b, %Y" }})</p>
+</article>
