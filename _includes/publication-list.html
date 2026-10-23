@@ -38,7 +38,7 @@ Data source: _data/publications.yml
           </li>
           <li>
             <em class="sp-pub-venue">
-              {%- if pub.venue -%}
+              {%- if pub.venue and pub.venue != "" -%}
                 {{ pub.venue }}{% if pub.locator %}, {{ pub.locator }}{% endif %}{% if group == "conference" %} {{ pub.year }}{% endif %}
               {%- else -%}
                 {{ pub.year }}
