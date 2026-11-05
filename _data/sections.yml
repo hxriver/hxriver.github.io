@@ -1,0 +1,41 @@
+# ---------------------------------------------------------------------------
+# The panels of the deck homepage, in display order.
+#
+# Consumed by:
+#   _pages/about.html     (renders one <section class="hz-panel"> per entry)
+#   _layouts/modern.html  (renders the footer section navigation)
+#
+# `collection` marks a panel that only appears once the matching Jekyll
+# collection has at least one entry — so empty sections never leave a blank
+# panel or a dead footer link behind.
+# ---------------------------------------------------------------------------
+
+- id: about
+  label: "About"
+
+- id: research
+  label: "Research"
+
+- id: education
+  label: "Education & Work"
+
+- id: publications
+  label: "Publications"
+
+- id: projects
+  label: "Projects"
+  collection: "projects"
+
+- id: talks
+  label: "Talks"
+  collection: "talks"
+
+- id: teaching
+  label: "Teaching"
+  collection: "teaching"
+
+- id: honors
+  label: "Awards & Service"
+
+- id: news
+  label: "News"

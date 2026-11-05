@@ -3,20 +3,27 @@
    --------------------------------------------------------------------------
    Vanilla JS, no dependencies. Loaded after the theme bundle so it can
    override the theme's jQuery smooth-scroll behaviour for in-page anchors.
+
+   Handles four things:
+     1. light / dark theme
+     2. deck <-> scroll layout switch on the panel homepage
+     3. panel navigation (arrows, footer nav, keyboard) in deck mode
+     4. the news "show all" toggle
    ========================================================================== */
 
 (function () {
   "use strict";
 
   var root = document.documentElement;
-  var headerInner = document.getElementById("sp-header-inner");
-  var nav = document.getElementById("sp-nav");
-  var menuToggle = document.getElementById("sp-menu-toggle");
-  var themeToggle = document.getElementById("sp-theme-toggle");
-  var toTop = document.getElementById("sp-to-top");
+  var themeToggle = document.getElementById("hz-theme-switch");
+  var layoutToggle = document.getElementById("hz-layout-switch");
+  var deck = document.querySelector(".hz-deck");
+  var arrowPrev = document.getElementById("hz-arrow-prev");
+  var arrowNext = document.getElementById("hz-arrow-next");
+  var footerLinks = [].slice.call(document.querySelectorAll(".hz-footer-nav a[data-hz-section]"));
 
   /* --------------------------------------------------------------------
-     Light / dark theme
+     1. Light / dark theme
      -------------------------------------------------------------------- */
 
   function applyTheme(theme) {
@@ -32,71 +39,165 @@
     themeToggle.addEventListener("click", function () {
       var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
       applyTheme(next);
-      try { localStorage.setItem("theme", next); } catch (e) {}
+      try {
+        localStorage.setItem("theme", next);
+      } catch (e) {}
     });
   }
 
   /* --------------------------------------------------------------------
-     Mobile navigation
+     2 + 3. Deck layout and panel navigation
      -------------------------------------------------------------------- */
 
-  function closeMenu() {
-    if (!headerInner) return;
-    headerInner.classList.remove("is-open");
-    if (menuToggle) {
-      menuToggle.classList.remove("is-open");
-      menuToggle.setAttribute("aria-expanded", "false");
+  function isDeck() {
+    return root.getAttribute("data-layout") === "deck" && !!deck;
+  }
+
+  function panels() {
+    if (!deck) return [];
+    return [].slice.call(deck.querySelectorAll(".hz-panel"));
+  }
+
+  function panelById(id) {
+    if (!id) return null;
+    return document.getElementById(id);
+  }
+
+  function topbarOffset() {
+    var bar = document.querySelector(".hz-topbar");
+    return (bar ? bar.offsetHeight : 64) + 16;
+  }
+
+  function currentIndex() {
+    if (!deck) return 0;
+    var width = deck.clientWidth || 1;
+    return Math.max(0, Math.min(panels().length - 1, Math.round(deck.scrollLeft / width)));
+  }
+
+  /* The panel the reader is currently looking at.
+
+     In deck mode that is the panel filling the viewport; in scroll mode it is
+     the last panel whose top has passed under the fixed top bar. */
+  function activeIndex() {
+    var list = panels();
+    if (!list.length) return 0;
+    if (isDeck()) return currentIndex();
+
+    var probe = window.pageYOffset + topbarOffset() + 8;
+    var index = 0;
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].getBoundingClientRect().top + window.pageYOffset <= probe) {
+        index = i;
+      }
+    }
+    return index;
+  }
+
+  function scrollDeckTo(panel, behavior) {
+    if (!deck || !panel) return;
+    var deckRect = deck.getBoundingClientRect();
+    var panelRect = panel.getBoundingClientRect();
+    var left = deck.scrollLeft + (panelRect.left - deckRect.left);
+    if (typeof deck.scrollTo === "function") {
+      deck.scrollTo({ left: left, behavior: behavior || "smooth" });
+    } else {
+      deck.scrollLeft = left;
     }
   }
 
-  if (menuToggle && headerInner) {
-    menuToggle.addEventListener("click", function () {
-      var open = headerInner.classList.toggle("is-open");
-      menuToggle.classList.toggle("is-open", open);
-      menuToggle.setAttribute("aria-expanded", open ? "true" : "false");
+  function setActive(index) {
+    var list = panels();
+    if (!list.length) return;
+    var active = list[Math.max(0, Math.min(list.length - 1, index))];
+
+    footerLinks.forEach(function (link) {
+      var isCurrent = link.getAttribute("data-hz-section") === active.id;
+      if (isCurrent) {
+        link.setAttribute("aria-current", "true");
+      } else {
+        link.setAttribute("aria-current", "false");
+      }
+    });
+
+    if (arrowPrev) arrowPrev.hidden = index <= 0;
+    if (arrowNext) arrowNext.hidden = index >= list.length - 1;
+  }
+
+  function goToPanel(index, behavior) {
+    var list = panels();
+    if (!list.length) return;
+    var clamped = Math.max(0, Math.min(list.length - 1, index));
+    scrollDeckTo(list[clamped], behavior);
+    setActive(clamped);
+    if (window.history && window.history.replaceState) {
+      window.history.replaceState(null, "", "#" + list[clamped].id);
+    }
+  }
+
+  function setLayout(mode) {
+    /* Remember where the reader is *before* the layout changes, so switching
+       back to deck mode returns to the same panel. */
+    var activeId = currentId();
+
+    root.setAttribute("data-layout", mode);
+    try {
+      localStorage.setItem("homepage-layout", mode);
+    } catch (e) {}
+
+    if (layoutToggle) {
+      var deckMode = mode === "deck";
+      layoutToggle.setAttribute("aria-pressed", deckMode ? "false" : "true");
+      layoutToggle.setAttribute("aria-label", deckMode ? "Switch to vertical scroll mode" : "Switch to deck mode");
+      layoutToggle.title = deckMode ? "Switch to vertical scroll mode" : "Switch to deck mode";
+    }
+
+    if (mode === "deck") {
+      var panel = panelById(activeId);
+      if (panel) {
+        window.requestAnimationFrame(function () {
+          scrollDeckTo(panel, "auto");
+        });
+      }
+    }
+    setActive(indexOf(activeId));
+  }
+
+  function indexOf(id) {
+    var list = panels();
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].id === id) return i;
+    }
+    return 0;
+  }
+
+  function currentId() {
+    var list = panels();
+    if (!list.length) return null;
+    return list[activeIndex()].id;
+  }
+
+  if (layoutToggle) {
+    layoutToggle.addEventListener("click", function () {
+      setLayout(root.getAttribute("data-layout") === "deck" ? "scroll" : "deck");
     });
   }
 
-  document.addEventListener("click", function (e) {
-    if (!headerInner) return;
-    if (headerInner.contains(e.target)) return;
-    closeMenu();
-  });
-
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape") closeMenu();
-  });
-
-  window.addEventListener("resize", function () {
-    if (window.innerWidth > 720) closeMenu();
-  });
-
-  /* --------------------------------------------------------------------
-     News "Show all" toggle
-     -------------------------------------------------------------------- */
-
-  [].slice.call(document.querySelectorAll(".sp-news-toggle")).forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      var list = document.querySelector(btn.getAttribute("data-target"));
-      if (!list) return;
-      var collapsed = list.classList.toggle("is-collapsed");
-      list.classList.toggle("is-expanded", !collapsed);
-      btn.textContent = collapsed ? "Show all" : "Show less";
-      btn.setAttribute("aria-expanded", collapsed ? "false" : "true");
+  if (arrowPrev) {
+    arrowPrev.addEventListener("click", function () {
+      goToPanel(activeIndex() - 1);
     });
-  });
-
-  /* --------------------------------------------------------------------
-     In-page smooth scrolling
-     Handled in the capture phase so the theme's jQuery smooth-scroll
-     plugin (bound on the bubble phase) never double-animates.
-     -------------------------------------------------------------------- */
-
-  function headerOffset() {
-    var header = document.getElementById("sp-header");
-    return (header ? header.offsetHeight : 64) + 16;
   }
 
+  if (arrowNext) {
+    arrowNext.addEventListener("click", function () {
+      goToPanel(activeIndex() + 1);
+    });
+  }
+
+  /* Footer navigation and in-page anchors.
+
+     Handled in the capture phase so the theme's jQuery smooth-scroll plugin
+     (bound on the bubble phase) never double-animates. */
   document.addEventListener(
     "click",
     function (e) {
@@ -112,60 +213,93 @@
       var hash = link.getAttribute("href");
       if (!hash || hash === "#") return;
 
-      // Only same-page anchors scroll; anything else is a normal link.
       if (link.pathname && link.pathname !== window.location.pathname) return;
 
-      var target = null;
-      try {
-        target = document.querySelector(hash);
-      } catch (err) {
-        target = null;
-      }
+      var id = hash.slice(1);
+      var target = document.getElementById(id);
       if (!target) return;
 
       e.preventDefault();
       e.stopPropagation();
 
-      var top = target.getBoundingClientRect().top + window.pageYOffset - headerOffset();
-      window.scrollTo({ top: top, behavior: "smooth" });
-
-      if (window.history && window.history.replaceState) {
-        window.history.replaceState(null, "", hash);
+      if (isDeck() && target.classList.contains("hz-panel")) {
+        goToPanel(indexOf(id));
+      } else {
+        var top = target.getBoundingClientRect().top + window.pageYOffset - topbarOffset();
+        window.scrollTo({ top: top, behavior: "smooth" });
+        if (window.history && window.history.replaceState) {
+          window.history.replaceState(null, "", hash);
+        }
       }
-
-      closeMenu();
     },
     true
   );
 
+  /* Keyboard navigation in deck mode */
+  document.addEventListener("keydown", function (e) {
+    if (!isDeck()) return;
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    var tag = (e.target && e.target.tagName) || "";
+    if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
+
+    if (e.key === "ArrowRight") {
+      e.preventDefault();
+      goToPanel(activeIndex() + 1);
+    } else if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      goToPanel(activeIndex() - 1);
+    }
+  });
+
+  /* Keep the footer navigation in sync with the panel that is on screen */
+  if (deck) {
+    var ticking = false;
+
+    function syncActive() {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(function () {
+        ticking = false;
+        setActive(activeIndex());
+      });
+    }
+
+    deck.addEventListener("scroll", syncActive, { passive: true });
+    window.addEventListener("scroll", syncActive, { passive: true });
+
+    window.addEventListener("resize", function () {
+      if (isDeck()) {
+        var panel = panelById(currentId());
+        if (panel) scrollDeckTo(panel, "auto");
+      }
+    });
+
+    /* Restore the panel referenced by the URL hash on first load */
+    window.addEventListener("load", function () {
+      var id = (window.location.hash || "").slice(1);
+      var panel = panelById(id);
+      if (panel && isDeck()) {
+        scrollDeckTo(panel, "auto");
+        setActive(indexOf(id));
+      } else {
+        setActive(activeIndex());
+      }
+    });
+
+    setActive(activeIndex());
+  }
+
   /* --------------------------------------------------------------------
-     Back to top
+     4. News "show all" toggle
      -------------------------------------------------------------------- */
 
-  if (toTop) {
-    toTop.addEventListener("click", function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      window.scrollTo({ top: 0, behavior: "smooth" });
+  [].slice.call(document.querySelectorAll("[data-hz-news-toggle]")).forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var list = btn.parentNode.querySelector(".hz-news-list");
+      if (!list) return;
+      var collapsed = list.classList.toggle("is-collapsed");
+      btn.textContent = collapsed ? "Show all" : "Show less";
+      btn.setAttribute("aria-expanded", collapsed ? "false" : "true");
     });
-  }
-
-  var ticking = false;
-
-  function update() {
-    ticking = false;
-    var scrollTop = window.pageYOffset || root.scrollTop;
-    if (toTop) {
-      toTop.classList.toggle("is-visible", scrollTop > 240);
-    }
-  }
-
-  function onScroll() {
-    if (ticking) return;
-    ticking = true;
-    window.requestAnimationFrame(update);
-  }
-
-  window.addEventListener("scroll", onScroll, { passive: true });
-  update();
+  });
 })();

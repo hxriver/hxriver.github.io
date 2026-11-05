@@ -1,0 +1,63 @@
+{% comment %}
+Shared education + work timeline.
+
+Renders the degrees from _data/cv.yml as a vertical spine, followed by the
+academic and internship positions as compact entries on the same spine.
+
+Consumed by the deck homepage (panel #education), /about/ and /cv/.
+{% endcomment %}
+
+{% assign cv = site.data.cv %}
+
+<ol class="hz-edu">
+  {% for entry in cv.education %}
+    <li class="hz-edu-item">
+      <div class="hz-edu-row">
+        <div class="hz-edu-rail" aria-hidden="true"><span class="hz-edu-marker"></span></div>
+        <div class="hz-edu-card">
+          <div class="hz-edu-card__body">
+            <p class="hz-edu-period">{{ entry.period }}</p>
+            <h3 class="hz-edu-school">{{ entry.school }}</h3>
+            <p class="hz-edu-degree">{{ entry.degree }}</p>
+            {% if entry.detail %}<p class="hz-edu-department">{{ entry.detail }}</p>{% endif %}
+          </div>
+        </div>
+      </div>
+    </li>
+  {% endfor %}
+
+  {% for entry in cv.academic %}
+    <li class="hz-edu-item">
+      <div class="hz-edu-row">
+        <div class="hz-edu-rail" aria-hidden="true"><span class="hz-edu-marker hz-edu-marker--soft"></span></div>
+        <div class="hz-edu-card hz-edu-card--compact">
+          <div class="hz-edu-card__body">
+            <p class="hz-edu-period">{{ entry.period }}</p>
+            <h3 class="hz-edu-school">{{ entry.role }}</h3>
+            <p class="hz-edu-degree">{{ entry.org }}</p>
+          </div>
+        </div>
+      </div>
+    </li>
+  {% endfor %}
+
+  {% for entry in cv.internship %}
+    <li class="hz-edu-item">
+      <div class="hz-edu-row">
+        <div class="hz-edu-rail" aria-hidden="true"><span class="hz-edu-marker hz-edu-marker--soft"></span></div>
+        <div class="hz-edu-card hz-edu-card--compact">
+          <div class="hz-edu-card__body">
+            <p class="hz-edu-period">{{ entry.period }}</p>
+            <h3 class="hz-edu-school">{{ entry.role }}</h3>
+            <p class="hz-edu-degree">{{ entry.org }}</p>
+            {% if entry.highlights %}
+              <ul class="hz-edu-highlights">
+                {% for point in entry.highlights %}<li>{{ point }}</li>{% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </li>
+  {% endfor %}
+</ol>

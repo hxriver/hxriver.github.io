@@ -1,72 +1,268 @@
 ---
 layout: modern
 permalink: /
+deck: true
 title: "Ph.D. Candidate in Electrical and Electronic Engineering"
 author_profile: false
 excerpt: "He Xiao (River) is a Ph.D. candidate in Electrical and Electronic Engineering at The University of Hong Kong, working on in-memory computing, ultra-low-bit quantization for LLMs, and hardware–software co-design."
 ---
 
 {% assign profile = site.data.profile %}
-{% assign pubs   = site.data.publications %}
 {% assign cv     = site.data.cv %}
 
-<!-- ===================================================================
-     Hero
-     =================================================================== -->
-<section class="sp-hero">
-  <div class="sp-hero__copy">
-    <p class="sp-hero__eyebrow">{{ profile.eyebrow }}</p>
-    <h1 class="sp-hero__title">{{ site.author.name }}</h1>
-    <p class="sp-hero__sub">
-      {{ profile.subtitle }}<br>
-      {{ profile.mission }}
-    </p>
-    <div class="sp-hero__links">
-      <a class="sp-chip sp-chip--1" href="mailto:{{ profile.contact.email }}">Email</a>
-      <a class="sp-chip sp-chip--2" href="{{ site.author.googlescholar }}" target="_blank" rel="noopener">Google Scholar</a>
-      <a class="sp-chip sp-chip--3" href="https://github.com/{{ site.author.github }}" target="_blank" rel="noopener">GitHub</a>
-      <a class="sp-chip sp-chip--4" href="{{ '/publications/' | relative_url }}">Publications</a>
-      <a class="sp-chip sp-chip--5" href="{{ '/cv/' | relative_url }}">CV</a>
-      <a class="sp-chip sp-chip--6" href="{{ '/news/' | relative_url }}">News</a>
-    </div>
-  </div>
-  <img class="sp-hero__avatar" src="{{ '/images/profile.png' | relative_url }}" alt="{{ site.author.name }}">
-</section>
+{% comment %}
+  The deck homepage. Every panel is listed in _data/sections.yml, which also
+  drives the footer navigation, so the two can never drift apart.
+{% endcomment %}
 
-<!-- ===================================================================
-     Content card
-     =================================================================== -->
-<article class="sp-card">
+{% for section in site.data.sections %}
+  {% if section.collection == nil %}
+    {% assign section_visible = true %}
+  {% else %}
+    {% assign section_items = site[section.collection] %}
+    {% if section_items and section_items.size > 0 %}
+      {% assign section_visible = true %}
+    {% else %}
+      {% assign section_visible = false %}
+    {% endif %}
+  {% endif %}
 
-  <h2 id="Biography" class="sp-section-title">Biography</h2>
-  {% for paragraph in profile.bio %}
-    <p>{{ paragraph | markdownify | remove: "<p>" | remove: "</p>" }}</p>
-  {% endfor %}
-  <p>
-    A full account of my education, research experience and service is on the
-    <a href="{{ '/about/' | relative_url }}">about page</a>; the
-    <a href="{{ '/cv/' | relative_url }}">CV page</a> has the same in a compact form.
-  </p>
+  {% if section_visible %}
+    {% case section.id %}
 
-  <h2 id="Recent-News" class="sp-section-title">Recent News</h2>
-  {% include news-list.html collapsed=true %}
-  <p class="sp-more">
-    <a href="{{ '/news/' | relative_url }}">Full news archive &rarr;</a>
-  </p>
+      {% when "about" %}
+      <!-- ================================================================
+           About — hero + research directions
+           ================================================================ -->
+      <section class="hz-panel" id="about" aria-labelledby="about-title">
+        <div class="hz-container">
 
-  <h2 id="Publications" class="sp-section-title">Publications &amp; Preprints</h2>
-  {% include publication-list.html group="journal" limit=2 %}
-  {% include publication-list.html group="conference" limit=3 %}
-  <p class="sp-more">
-    <a href="{{ '/publications/' | relative_url }}">Full publication list &rarr;</a>
-  </p>
+          <div class="hz-hero">
+            <h1 class="hz-hero__title" id="about-title">
+              <span class="hz-name-line">{{ site.author.name }}<span class="hz-deg">Ph.D.</span></span>
+              <span class="hz-en">{{ profile.field }}</span>
+            </h1>
 
-  <h2 id="Experience" class="sp-section-title">Education &amp; Experience</h2>
-  {% include cv-education.html %}
-  {% include cv-experience.html %}
+            <div class="hz-hero__copy">
+              <p class="hz-hero__role">{{ profile.eyebrow }}</p>
+              <p class="hz-hero__bio">{{ profile.subtitle }}</p>
+              {% for paragraph in profile.bio %}
+                <p class="hz-hero__bio">{{ paragraph | markdownify | remove: "<p>" | remove: "</p>" }}</p>
+              {% endfor %}
+            </div>
 
-  <h2 id="Awards" class="sp-section-title">Awards &amp; Honors</h2>
-  {% include cv-honors.html %}
+            <div class="hz-hero__aside">
+              <img class="hz-hero__photo" src="{{ '/images/profile.png' | relative_url }}" alt="{{ site.author.name }}" width="210" height="280">
+              <div class="hz-hero__links">
+                <a class="hz-hero-link hz-hero-link--email" href="mailto:{{ profile.contact.email }}"
+                   data-tip="{{ profile.contact.email }}" aria-label="Email {{ profile.contact.email }}">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2Zm0 4-8 5L4 8V6l8 5 8-5v2Z"></path></svg>
+                </a>
+                <a class="hz-hero-link hz-hero-link--scholar" href="{{ site.author.googlescholar }}" target="_blank" rel="noopener"
+                   data-tip="Google Scholar" aria-label="Google Scholar">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3 1 9l11 6 9-4.91V17h2V9L12 3ZM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82Z"></path></svg>
+                </a>
+                <a class="hz-hero-link hz-hero-link--github" href="https://github.com/{{ site.author.github }}" target="_blank" rel="noopener"
+                   data-tip="github.com/{{ site.author.github }}" aria-label="GitHub">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2Z"></path></svg>
+                </a>
+                <a class="hz-hero-link" href="{{ '/cv/' | relative_url }}" data-tip="Curriculum vitae" aria-label="Curriculum vitae">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6Zm0 2.5L18.5 9H14V4.5ZM8 12h8v1.5H8V12Zm0 3.5h8V17H8v-1.5Zm0-7H8v1.5h8V8.5H8Z"></path></svg>
+                </a>
+              </div>
+            </div>
+          </div>
 
-  <p class="sp-last-updated">(Last updated on {{ site.time | date: "%b, %Y" }})</p>
-</article>
+          <dl class="hz-facts">
+            <div>
+              <dt>Affiliation</dt>
+              <dd>{{ profile.affiliation }}</dd>
+            </div>
+            <div>
+              <dt>Advisors</dt>
+              <dd>{{ profile.advisors }}</dd>
+            </div>
+            <div>
+              <dt>Location</dt>
+              <dd>{{ profile.contact.location }}</dd>
+            </div>
+            <div>
+              <dt>Email</dt>
+              <dd><a href="mailto:{{ profile.contact.email }}">{{ profile.contact.email }}</a></dd>
+            </div>
+          </dl>
+
+        </div>
+      </section>
+
+      {% when "research" %}
+      <!-- ================================================================
+           Research directions
+           ================================================================ -->
+      <section class="hz-panel" id="research" aria-labelledby="research-title">
+        <div class="hz-container">
+          <div class="hz-section-head">
+            <h2 id="research-title">Research</h2>
+            <div class="hz-section-head__meta">
+              <span>{{ profile.interests | size }} directions</span>
+              <a href="{{ '/about/' | relative_url }}">More about my work &rarr;</a>
+            </div>
+          </div>
+          <p class="hz-hero__bio">{{ profile.mission }}</p>
+          <div class="hz-research-grid">
+            {% for item in profile.interests %}
+              <article class="hz-research-card">
+                <h3><i class="{{ item.icon }}" aria-hidden="true"></i>{{ item.title }}</h3>
+                <p>{{ item.text }}</p>
+              </article>
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+
+      {% when "education" %}
+      <!-- ================================================================
+           Education & work timeline
+           ================================================================ -->
+      <section class="hz-panel" id="education" aria-labelledby="education-title">
+        <div class="hz-container">
+          <div class="hz-section-head">
+            <h2 id="education-title">Education &amp; Work</h2>
+            <div class="hz-section-head__meta">
+              <a href="{{ '/cv/' | relative_url }}">Full CV &rarr;</a>
+            </div>
+          </div>
+          {% include cv-timeline.html %}
+        </div>
+      </section>
+
+      {% when "publications" %}
+      <!-- ================================================================
+           Publications
+           ================================================================ -->
+      <section class="hz-panel hz-panel--band" id="publications" aria-labelledby="publications-title">
+        <div class="hz-container">
+          <div class="hz-section-head">
+            <h2 id="publications-title">Publications</h2>
+            <div class="hz-section-head__meta">
+              <a href="{{ '/publications/' | relative_url }}">All publications &rarr;</a>
+            </div>
+          </div>
+          {% include publication-list.html group="journal" %}
+          {% include publication-list.html group="conference" %}
+          {% include publication-list.html group="patents" %}
+        </div>
+      </section>
+
+      {% when "projects" %}
+      <section class="hz-panel" id="projects" aria-labelledby="projects-title">
+        <div class="hz-container">
+          <div class="hz-section-head">
+            <h2 id="projects-title">Projects</h2>
+            <div class="hz-section-head__meta">
+              <a href="{{ '/projects/' | relative_url }}">All projects &rarr;</a>
+            </div>
+          </div>
+          <div class="hz-project-grid">
+            {% for post in site.projects %}
+              <article class="hz-project-card">
+                <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+                {% if post.excerpt %}<p class="hz-desc">{{ post.excerpt | markdownify | strip_html | strip_newlines }}</p>{% endif %}
+              </article>
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+
+      {% when "talks" %}
+      <section class="hz-panel" id="talks" aria-labelledby="talks-title">
+        <div class="hz-container">
+          <div class="hz-section-head">
+            <h2 id="talks-title">Talks</h2>
+            <div class="hz-section-head__meta">
+              <a href="{{ '/talks/' | relative_url }}">All talks &rarr;</a>
+            </div>
+          </div>
+          <ul class="hz-entry-list">
+            {% for post in site.talks %}
+              <li class="hz-entry">
+                <h3 class="hz-entry__title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+                <p class="hz-entry__meta">
+                  {% if post.type %}{{ post.type }} &middot; {% endif %}{{ post.venue }}
+                  {% if post.date %} &middot; {{ post.date | date: "%Y" }}{% endif %}
+                </p>
+                {% if post.excerpt %}<p class="hz-entry__text">{{ post.excerpt | markdownify | strip_html | strip_newlines }}</p>{% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </section>
+
+      {% when "teaching" %}
+      <section class="hz-panel" id="teaching" aria-labelledby="teaching-title">
+        <div class="hz-container">
+          <div class="hz-section-head">
+            <h2 id="teaching-title">Teaching</h2>
+            <div class="hz-section-head__meta">
+              <a href="{{ '/teaching/' | relative_url }}">All teaching &rarr;</a>
+            </div>
+          </div>
+          <ul class="hz-entry-list">
+            {% for post in site.teaching %}
+              <li class="hz-entry">
+                <h3 class="hz-entry__title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+                <p class="hz-entry__meta">
+                  {% if post.type %}{{ post.type }} &middot; {% endif %}{{ post.venue }}
+                  {% if post.date %} &middot; {{ post.date | date: "%Y" }}{% endif %}
+                </p>
+                {% if post.excerpt %}<p class="hz-entry__text">{{ post.excerpt | markdownify | strip_html | strip_newlines }}</p>{% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </section>
+
+      {% when "honors" %}
+      <!-- ================================================================
+           Awards & service
+           ================================================================ -->
+      <section class="hz-panel" id="honors" aria-labelledby="honors-title">
+        <div class="hz-container">
+          <div class="hz-section-head">
+            <h2 id="honors-title">Awards &amp; Service</h2>
+            <div class="hz-section-head__meta">
+              <a href="{{ '/cv/' | relative_url }}">Full CV &rarr;</a>
+            </div>
+          </div>
+
+          <div class="hz-pub-group">
+            <h3>Honors <span class="hz-count">{{ cv.honors | size }}</span></h3>
+            {% include cv-honors.html %}
+          </div>
+
+          <div class="hz-pub-group">
+            <h3>Service &amp; Leadership <span class="hz-count">{{ cv.service | size }}</span></h3>
+            {% include cv-service.html %}
+          </div>
+        </div>
+      </section>
+
+      {% when "news" %}
+      <!-- ================================================================
+           Recent news
+           ================================================================ -->
+      <section class="hz-panel hz-panel--band" id="news" aria-labelledby="news-title">
+        <div class="hz-container">
+          <div class="hz-section-head">
+            <h2 id="news-title">News</h2>
+            <div class="hz-section-head__meta">
+              <a href="{{ '/news/' | relative_url }}">Full archive &rarr;</a>
+            </div>
+          </div>
+          {% include news-list.html collapsed=true %}
+        </div>
+      </section>
+
+    {% endcase %}
+  {% endif %}
+{% endfor %}

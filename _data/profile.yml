@@ -6,8 +6,9 @@
 nickname: "River"
 eyebrow: "Ph.D. Student @ The University of Hong Kong"
 role: "Ph.D. Candidate in Electrical and Electronic Engineering"
+field: "Electrical and Electronic Engineering"
 affiliation: "The University of Hong Kong"
-advisors: "Advised by Prof. Ngai Wong and Prof. Can Li"
+advisors: "Prof. Ngai Wong · Prof. Can Li"
 
 subtitle: "Bridging advanced AI algorithms with practical high-performance hardware."
 mission: "Mission: make large AI models cheap enough to run anywhere."

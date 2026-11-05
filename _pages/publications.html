@@ -9,10 +9,8 @@ author_profile: false
 excerpt: "Publication list of He Xiao, Ph.D. candidate in Electrical and Electronic Engineering at The University of Hong Kong."
 ---
 
-<article class="sp-card">
-  {% include publication-list.html group="journal" heading=true %}
-  {% include publication-list.html group="conference" heading=true %}
-  {% include publication-list.html group="patents" heading=true %}
+{% include publication-list.html group="journal" %}
+{% include publication-list.html group="conference" %}
+{% include publication-list.html group="patents" %}
 
-  <p class="sp-last-updated">(Last updated on {{ site.time | date: "%b, %Y" }})</p>
-</article>
+<p class="hz-last-updated">(Last updated on {{ site.time | date: "%b, %Y" }})</p>

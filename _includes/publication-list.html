@@ -1,57 +1,63 @@
 {% comment %}
 Shared publication list.
 
-  include group  -> journal | conference | patents   (default: all three)
-  include limit  -> cap the number of entries in the group
-  include heading -> render a section title above the list (default false)
+  include group -> journal | conference | patents   (default: journal)
+  include limit -> cap the number of entries in the group
 
-Rendered by the homepage and by /publications/ so the two never drift apart.
-Data source: _data/publications.yml
+Rendered by the deck homepage and by /publications/ so the two never drift
+apart. Data source: _data/publications.yml
 {% endcomment %}
 
 {% assign pubs = site.data.publications %}
 {% assign group = include.group %}
 {% assign limit = include.limit %}
 
-{% if group == nil or group == "journal" %}
+{% if group == "journal" %}
   {% assign list = pubs.journal %}
   {% assign heading = "Journal Articles" %}
 {% elsif group == "conference" %}
   {% assign list = pubs.conference %}
-  {% assign heading = "Conference Papers" %}
+  {% assign heading = "Conference Papers & Preprints" %}
 {% else %}
   {% assign list = pubs.patents %}
   {% assign heading = "Patents" %}
 {% endif %}
 
-{% if include.heading %}<h2 class="sp-section-title">{{ heading }}</h2>{% endif %}
-
-<ul class="sp-pub-list">
-  {% for pub in list %}
-    {% if limit == nil or forloop.index <= limit %}
-      <li>
-        <p class="sp-pub-title">{{ pub.title }}</p>
-        <ul>
-          <li>
-            {% assign parts = pub.authors | split: "**" %}
-            {% for part in parts %}{% if forloop.index0 == 1 %}<b>{{ part }}</b>{% else %}{{ part }}{% endif %}{% endfor %}
-          </li>
-          <li>
-            <em class="sp-pub-venue">
-              {%- if pub.venue and pub.venue != "" -%}
-                {{ pub.venue }}{% if pub.locator %}, {{ pub.locator }}{% endif %}{% if group == "conference" %} {{ pub.year }}{% endif %}
-              {%- else -%}
-                {{ pub.year }}
-              {%- endif -%}
-            </em>
-            <span class="sp-pub-tag sp-tag--{{ pub.tag | downcase }}">{{ pub.tag }}</span>
-            {% if pub.note %}<span class="sp-pub-tag sp-tag--note">{{ pub.note }}</span>{% endif %}
-            {% for link in pub.links %}
-              [<a href="{{ link.url }}" target="_blank" rel="noopener">{{ link.label }}</a>]
-            {% endfor %}
-          </li>
-        </ul>
-      </li>
-    {% endif %}
-  {% endfor %}
-</ul>
+{% if list and list.size > 0 %}
+<div class="hz-pub-group" id="{{ group }}-publications">
+  <h3>{{ heading }} <span class="hz-count">{{ list.size }}</span></h3>
+  <ul class="hz-pub-list">
+    {% for pub in list %}
+      {% if limit == nil or forloop.index <= limit %}
+        <li class="hz-pub-card">
+          <div class="hz-pub-card__title">
+            <span class="hz-text">{{ pub.title }}</span>
+            <span class="hz-badge hz-badge--{{ pub.tag | downcase }}">{{ pub.tag }}</span>
+            {% if pub.note %}<span class="hz-badge hz-badge--note">{{ pub.note }}</span>{% endif %}
+          </div>
+          <div class="hz-pub-card__authors">
+            {%- assign parts = pub.authors | split: "**" -%}
+            {%- for part in parts -%}
+              {%- if forloop.index0 == 1 -%}<strong>{{ part }}</strong>{%- else -%}{{ part }}{%- endif -%}
+            {%- endfor -%}
+          </div>
+          <div class="hz-pub-card__meta">
+            {%- if pub.venue and pub.venue != "" -%}
+              <em class="hz-venue">{{ pub.venue }}</em>{% if pub.locator %}, {{ pub.locator }}{% endif %}
+              <span class="hz-sep">&middot;</span>
+            {%- endif -%}
+            <span class="hz-year">{{ pub.year }}</span>
+          </div>
+          {% if pub.links and pub.links.size > 0 %}
+            <div class="hz-pub-card__links">
+              {% for link in pub.links %}
+                <a href="{{ link.url }}" target="_blank" rel="noopener">{{ link.label }} &rsaquo;</a>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}

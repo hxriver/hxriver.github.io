@@ -1,0 +1,15 @@
+{% comment %}
+Shared CV block — Service & Leadership.
+Data source: _data/cv.yml
+{% endcomment %}
+
+{% assign cv = site.data.cv %}
+
+<ul class="hz-honor-list">
+  {% for entry in cv.service %}
+    <li>
+      {{ entry.role }} — {{ entry.org }}
+      {% if entry.period %}<span class="hz-detail">{{ entry.period }}</span>{% endif %}
+    </li>
+  {% endfor %}
+</ul>

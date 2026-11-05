@@ -13,13 +13,15 @@ redirect_from:
   - /resume.html
 ---
 
-<article class="sp-card">
-  {% include cv-education.html %}
-  {% include cv-experience.html %}
-  {% include cv-honors.html %}
+{% include cv-timeline.html %}
 
-  <p class="sp-more">
-    <a href="{{ '/files/CV.pdf' | relative_url }}">Download the PDF version &rarr;</a>
-  </p>
-  <p class="sp-last-updated">(Last updated on {{ site.time | date: "%b, %Y" }})</p>
-</article>
+<h2 id="Service">Service &amp; Leadership</h2>
+{% include cv-service.html %}
+
+<h2 id="Awards">Awards &amp; Honors</h2>
+{% include cv-honors.html %}
+
+<p class="hz-more">
+  <a href="{{ '/files/CV.pdf' | relative_url }}">Download the PDF version &rarr;</a>
+</p>
+<p class="hz-last-updated">(Last updated on {{ site.time | date: "%b, %Y" }})</p>
