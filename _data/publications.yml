@@ -101,6 +101,8 @@ conference:
     links:
       - label: "ACL"
         url: "https://aclanthology.org/2026.findings-acl.771/"
+      - label: "DOI"
+        url: "https://doi.org/10.18653/v1/2026.findings-acl.771"
       - label: "arXiv"
         url: "https://arxiv.org/abs/2508.03332"
 
