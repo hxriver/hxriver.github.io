@@ -2,8 +2,7 @@
 # Single source of truth for the publication list.
 #
 # Consumed by:
-#   _pages/about.html        (the homepage, section #Publications)
-#   _pages/publications.html (the standalone /publications/ page)
+#   _pages/about.html   (the homepage, panel #publications)
 #
 # Every entry below was checked against its publisher record (IEEE Xplore,
 # Crossref, ACL Anthology, Google Patents) and every listed link was taken

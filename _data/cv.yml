@@ -1,10 +1,9 @@
 # ---------------------------------------------------------------------------
-# Curriculum vitae content, kept separate from the layout so the one-page
-# homepage and the standalone /about/ page never drift apart.
+# Curriculum vitae content, kept separate from the layout so the homepage
+# stays a single source of truth.
 #
 # Consumed by:
-#   _pages/about.html        (the one-page homepage, panel #education)
-#   _pages/about-page.html   (the standalone /about/ page)
+#   _pages/about.html   (the homepage, panel #education)
 #
 # `timeline` is a single chronologically ordered list. Entries tagged
 # `track: main` form the solid spine — the degrees, in the order they were

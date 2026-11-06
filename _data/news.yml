@@ -2,8 +2,7 @@
 # Recent news / updates feed.
 #
 # Consumed by:
-#   _pages/about.html   (the homepage, section #Recent-News — first 4 shown)
-#   _pages/news.html    (the standalone /news/ page — full archive)
+#   _pages/about.html   (the homepage, panel #news — first 4 shown, rest on "Show all")
 #
 # Entries are listed newest first. Keep every line traceable to a fact that
 # also appears in _data/publications.yml or _data/cv.yml.

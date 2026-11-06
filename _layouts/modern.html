@@ -154,17 +154,13 @@ sitemap: false
           <span>Scroll to page</span>
         </p>
       {% else %}
+        {% comment %}
+          The site is a single page; the only non-panel page left is the
+          404, so its footer just points back home.
+        {% endcomment %}
         <nav class="hz-footer-nav" aria-label="Site pages">
           <a href="{{ '/' | relative_url }}" {% if url == '/' %}aria-current="true"{% endif %}>Home</a>
-          <a href="{{ '/about/' | relative_url }}" {% if url == '/about/' %}aria-current="true"{% endif %}>About</a>
-          <a href="{{ '/publications/' | relative_url }}" {% if url == '/publications/' %}aria-current="true"{% endif %}>Publications</a>
-          <a href="{{ '/news/' | relative_url }}" {% if url == '/news/' %}aria-current="true"{% endif %}>News</a>
-          <a href="{{ '/projects/' | relative_url }}" {% if url == '/projects/' %}aria-current="true"{% endif %}>Projects</a>
-          <a href="{{ '/talks/' | relative_url }}" {% if url == '/talks/' %}aria-current="true"{% endif %}>Talks</a>
-          <a href="{{ '/teaching/' | relative_url }}" {% if url == '/teaching/' %}aria-current="true"{% endif %}>Teaching</a>
-          <a href="{{ '/blog/' | relative_url }}" {% if url == '/blog/' %}aria-current="true"{% endif %}>Blog</a>
           <a href="{{ '/files/CV.pdf' | relative_url }}">CV (PDF)</a>
-          <a href="{{ '/sitemap/' | relative_url }}" {% if url == '/sitemap/' %}aria-current="true"{% endif %}>Sitemap</a>
         </nav>
         <p class="hz-footer-meta">
           &copy; {{ site.time | date: '%Y' }} {{ site.author.name }} ·

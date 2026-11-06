@@ -105,7 +105,6 @@ excerpt: "He Xiao (River) is a Ph.D. candidate in Electrical and Electronic Engi
             <h2 id="research-title">Research</h2>
             <div class="hz-section-head__meta">
               <span>{{ profile.interests | size }} directions</span>
-              <a href="{{ '/about/' | relative_url }}">More about my work &rarr;</a>
             </div>
           </div>
           <p class="hz-hero__bio">{{ profile.mission }}</p>
@@ -144,9 +143,6 @@ excerpt: "He Xiao (River) is a Ph.D. candidate in Electrical and Electronic Engi
         <div class="hz-container">
           <div class="hz-section-head">
             <h2 id="publications-title">Publications</h2>
-            <div class="hz-section-head__meta">
-              <a href="{{ '/publications/' | relative_url }}">All publications &rarr;</a>
-            </div>
           </div>
           {% include publication-list.html group="journal" %}
           {% include publication-list.html group="conference" %}
@@ -159,9 +155,6 @@ excerpt: "He Xiao (River) is a Ph.D. candidate in Electrical and Electronic Engi
         <div class="hz-container">
           <div class="hz-section-head">
             <h2 id="projects-title">Projects</h2>
-            <div class="hz-section-head__meta">
-              <a href="{{ '/projects/' | relative_url }}">All projects &rarr;</a>
-            </div>
           </div>
           <div class="hz-project-grid">
             {% for post in site.projects %}
@@ -179,9 +172,6 @@ excerpt: "He Xiao (River) is a Ph.D. candidate in Electrical and Electronic Engi
         <div class="hz-container">
           <div class="hz-section-head">
             <h2 id="talks-title">Talks</h2>
-            <div class="hz-section-head__meta">
-              <a href="{{ '/talks/' | relative_url }}">All talks &rarr;</a>
-            </div>
           </div>
           <ul class="hz-entry-list">
             {% for post in site.talks %}
@@ -203,9 +193,6 @@ excerpt: "He Xiao (River) is a Ph.D. candidate in Electrical and Electronic Engi
         <div class="hz-container">
           <div class="hz-section-head">
             <h2 id="teaching-title">Teaching</h2>
-            <div class="hz-section-head__meta">
-              <a href="{{ '/teaching/' | relative_url }}">All teaching &rarr;</a>
-            </div>
           </div>
           <ul class="hz-entry-list">
             {% for post in site.teaching %}
@@ -255,9 +242,6 @@ excerpt: "He Xiao (River) is a Ph.D. candidate in Electrical and Electronic Engi
         <div class="hz-container">
           <div class="hz-section-head">
             <h2 id="news-title">News</h2>
-            <div class="hz-section-head__meta">
-              <a href="{{ '/news/' | relative_url }}">Full archive &rarr;</a>
-            </div>
           </div>
           {% include news-list.html collapsed=true %}
         </div>
