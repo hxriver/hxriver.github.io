@@ -97,15 +97,11 @@ sitemap: false
         </button>
       </div>
 
-      <nav class="hz-topbar__right" aria-label="Site pages">
-        <div class="hz-topbar__chips">
-          <a class="hz-chip{% if url == '/publications/' %} is-active{% endif %}" href="{{ '/publications/' | relative_url }}">Publications</a>
-          <a class="hz-chip{% if url == '/news/' %} is-active{% endif %}" href="{{ '/news/' | relative_url }}">News</a>
-          <a class="hz-chip{% if url == '/about/' %} is-active{% endif %}" href="{{ '/about/' | relative_url }}">About</a>
-          <a class="hz-chip{% if url == '/cv/' %} is-active{% endif %}" href="{{ '/cv/' | relative_url }}">CV</a>
-          <a class="hz-chip{% if url == '/sitemap/' %} is-active{% endif %}" href="{{ '/sitemap/' | relative_url }}">Sitemap</a>
-        </div>
-      </nav>
+      {% comment %}
+        The top bar used to repeat the footer navigation. Those links are gone:
+        every page is reachable from the footer, and the deck homepage lists
+        all sub-pages below its panel navigation.
+      {% endcomment %}
     </header>
 
     <main id="content" class="{% if is_deck %}hz-deck{% else %}hz-main{% endif %}">
@@ -146,9 +142,25 @@ sitemap: false
           {% endfor %}
         </nav>
         <p class="hz-footer-meta">
-          {{ site.author.name }} · {{ site.author.employer }} ·
-          <a href="{{ '/sitemap/' | relative_url }}">All pages</a>
+          {{ site.author.name }} · {{ site.author.employer }}
         </p>
+
+        {% comment %}
+          Every sub-page of the site, so the homepage is a complete index:
+          the panel navigation above only covers what is on the deck.
+        {% endcomment %}
+        <nav class="hz-footer-pages" aria-label="All pages">
+          <a href="{{ '/about/' | relative_url }}">About</a>
+          <a href="{{ '/publications/' | relative_url }}">Publications</a>
+          <a href="{{ '/news/' | relative_url }}">News</a>
+          <a href="{{ '/projects/' | relative_url }}">Projects</a>
+          <a href="{{ '/talks/' | relative_url }}">Talks</a>
+          <a href="{{ '/teaching/' | relative_url }}">Teaching</a>
+          <a href="{{ '/blog/' | relative_url }}">Blog</a>
+          <a href="{{ '/files/CV.pdf' | relative_url }}">CV (PDF)</a>
+          <a href="{{ '/sitemap/' | relative_url }}">Sitemap</a>
+        </nav>
+
         <p class="hz-scroll-hint" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
             <rect x="8" y="3" width="8" height="14" rx="4"></rect>
@@ -167,7 +179,7 @@ sitemap: false
           <a href="{{ '/talks/' | relative_url }}" {% if url == '/talks/' %}aria-current="true"{% endif %}>Talks</a>
           <a href="{{ '/teaching/' | relative_url }}" {% if url == '/teaching/' %}aria-current="true"{% endif %}>Teaching</a>
           <a href="{{ '/blog/' | relative_url }}" {% if url == '/blog/' %}aria-current="true"{% endif %}>Blog</a>
-          <a href="{{ '/cv/' | relative_url }}" {% if url == '/cv/' %}aria-current="true"{% endif %}>CV</a>
+          <a href="{{ '/files/CV.pdf' | relative_url }}">CV (PDF)</a>
           <a href="{{ '/sitemap/' | relative_url }}" {% if url == '/sitemap/' %}aria-current="true"{% endif %}>Sitemap</a>
         </nav>
         <p class="hz-footer-meta">

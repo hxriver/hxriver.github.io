@@ -1,49 +1,71 @@
 # ---------------------------------------------------------------------------
 # Curriculum vitae content, kept separate from the layout so the one-page
-# homepage and the standalone /cv/ page never drift apart.
+# homepage and the standalone /about/ page never drift apart.
 #
 # Consumed by:
-#   _pages/about.md        (the one-page homepage, section #cv)
-#   _pages/cv.md           (the standalone /cv/ page)
+#   _pages/about.html        (the one-page homepage, panel #education)
+#   _pages/about-page.html   (the standalone /about/ page)
+#
+# `timeline` is a single chronologically ordered list. Entries tagged
+# `track: main` form the solid spine — the degrees, in the order they were
+# taken. Entries tagged `track: side` hang off that spine on a dashed branch
+# and are rendered in a separate column so the two never overlap.
+#
+# `logo` is the mark shown next to the school name. `logo_dark` is the
+# dark-theme variant; when it is omitted the light mark is reused.
 # ---------------------------------------------------------------------------
 
-education:
-  - degree: "Ph.D. in Electrical and Electronic Engineering"
-    school: "The University of Hong Kong"
-    period: "Sep 2024 – Aug 2028"
-    detail: "Advisors: Prof. Ngai Wong, Prof. Can Li"
-
-  - degree: "M.Sc. in Electrical and Electronic Engineering"
-    school: "The University of Western Australia"
-    period: "Jul 2019 – Nov 2021"
-    detail: "Advisor: Prof. Wen Lei"
-
-  - degree: "B.Eng. in Automation"
+timeline:
+  # ---- Main spine: B.Eng. -> M.Sc. -> Ph.D. -------------------------------
+  - track: main
+    degree: "B.Eng. in Automation"
     school: "Southwest University"
     period: "Sep 2016 – Jun 2020"
     detail: "Advisor: Prof. Xiaofang Hu"
+    logo: "/images/schools/swu-ink.png"
+    logo_dark: "/images/schools/swu.png"
 
-academic:
-  - role: "Teaching Assistant – Math 1853"
-    org: "The University of Hong Kong, Faculty of Engineering"
-    period: "Fall 2025"
+  - track: main
+    degree: "M.Sc. in Electrical and Electronic Engineering"
+    school: "The University of Western Australia"
+    period: "Jul 2019 – Nov 2021"
+    detail: "Advisor: Prof. Wen Lei"
+    logo: "/images/schools/uwa-ink.svg"
+    logo_dark: "/images/schools/uwa.svg"
 
-  - role: "Visiting Scholar – Tape-out Project Collaboration"
-    org: "Institute of Microelectronics, Southern University of Science and Technology"
-    period: "Aug 2025 – Oct 2025"
-
-  - role: "Research Assistant & Team Leader"
+  # ---- Side branch between the M.Sc. and the Ph.D. ------------------------
+  - track: side
+    role: "Research Assistant & Team Leader"
     org: "School of Artificial Intelligence, Southwest University"
     period: "Jun 2022 – Jan 2024"
 
-internship:
-  - role: "Research Scientist Intern – Efficient AI & Edge Deployment"
+  - track: main
+    degree: "Ph.D. in Electrical and Electronic Engineering"
+    school: "The University of Hong Kong"
+    period: "Sep 2024 – Aug 2028"
+    detail: "Advisors: Prof. Ngai Wong, Prof. Can Li"
+    logo: "/images/schools/hku.svg"
+    logo_dark: "/images/schools/hku-white.svg"
+
+  # ---- Side branches during the Ph.D. -------------------------------------
+  - track: side
+    role: "Research Scientist Intern – Efficient AI & Edge Deployment"
     org: "PIMIC Inc. (USA), Hong Kong Science and Technology Park"
     period: "Sep 2024 – Aug 2025"
     highlights:
       - "Led development of an on-device speech-dialogue chatbot enabling LLM interaction on edge hardware"
       - "Conducted model fine-tuning and quantization to achieve real-time 4-bit inference"
       - "Initiated preliminary ASIC research for specialized AI accelerators"
+
+  - track: side
+    role: "Visiting Scholar – Tape-out Project Collaboration"
+    org: "Institute of Microelectronics, Southern University of Science and Technology"
+    period: "Aug 2025 – Oct 2025"
+
+  - track: side
+    role: "Teaching Assistant – Math 1853"
+    org: "The University of Hong Kong, Faculty of Engineering"
+    period: "Fall 2025"
 
 service:
   - role: "Reviewer"

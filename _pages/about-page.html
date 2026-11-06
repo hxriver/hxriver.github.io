@@ -7,6 +7,12 @@ page_eyebrow: "About"
 page_lead: "Biography, research interests, and the path that led here."
 author_profile: false
 excerpt: "Biography and research interests of He Xiao, Ph.D. candidate in Electrical and Electronic Engineering at The University of Hong Kong."
+redirect_from:
+  - /cv
+  - /cv/
+  - /resume
+  - /resume/
+  - /resume.html
 ---
 
 {% assign profile = site.data.profile %}
@@ -43,5 +49,9 @@ excerpt: "Biography and research interests of He Xiao, Ph.D. candidate in Electr
   <li>Google Scholar: <a href="{{ site.author.googlescholar }}" target="_blank" rel="noopener">profile</a></li>
   <li>GitHub: <a href="https://github.com/{{ site.author.github }}" target="_blank" rel="noopener">{{ site.author.github }}</a></li>
 </ul>
+
+<p class="hz-more">
+  <a href="{{ '/files/CV.pdf' | relative_url }}">Download the printable CV (PDF) &rarr;</a>
+</p>
 
 <p class="hz-last-updated">(Last updated on {{ site.time | date: "%b, %Y" }})</p>

@@ -1,50 +1,22 @@
 {% comment %}
 Shared education + work timeline.
 
-Renders the degrees from _data/cv.yml as a vertical spine, followed by the
-academic and internship positions as compact entries on the same spine.
+Renders _data/cv.yml `timeline` as a two-track vertical timeline:
 
-Consumed by the deck homepage (panel #education), /about/ and /cv/.
+  * `track: main` entries form the solid spine — the degrees in the order
+    they were taken (B.Eng. -> M.Sc. -> Ph.D.).
+  * `track: side` entries hang off that spine on a dashed branch and are
+    placed in their own column, so a side card never overlaps a main one.
+
+Consumed by the deck homepage (panel #education) and /about/.
 {% endcomment %}
 
 {% assign cv = site.data.cv %}
 
 <ol class="hz-edu">
-  {% for entry in cv.education %}
-    <li class="hz-edu-item">
-      <div class="hz-edu-row">
-        <div class="hz-edu-rail" aria-hidden="true"><span class="hz-edu-marker"></span></div>
-        <div class="hz-edu-card">
-          <div class="hz-edu-card__body">
-            <p class="hz-edu-period">{{ entry.period }}</p>
-            <h3 class="hz-edu-school">{{ entry.school }}</h3>
-            <p class="hz-edu-degree">{{ entry.degree }}</p>
-            {% if entry.detail %}<p class="hz-edu-department">{{ entry.detail }}</p>{% endif %}
-          </div>
-        </div>
-      </div>
-    </li>
-  {% endfor %}
-
-  {% for entry in cv.academic %}
-    <li class="hz-edu-item">
-      <div class="hz-edu-row">
-        <div class="hz-edu-rail" aria-hidden="true"><span class="hz-edu-marker hz-edu-marker--soft"></span></div>
-        <div class="hz-edu-card hz-edu-card--compact">
-          <div class="hz-edu-card__body">
-            <p class="hz-edu-period">{{ entry.period }}</p>
-            <h3 class="hz-edu-school">{{ entry.role }}</h3>
-            <p class="hz-edu-degree">{{ entry.org }}</p>
-          </div>
-        </div>
-      </div>
-    </li>
-  {% endfor %}
-
-  {% for entry in cv.internship %}
-    <li class="hz-edu-item">
-      <div class="hz-edu-row">
-        <div class="hz-edu-rail" aria-hidden="true"><span class="hz-edu-marker hz-edu-marker--soft"></span></div>
+  {% for entry in cv.timeline %}
+    {% if entry.track == "side" %}
+      <li class="hz-edu-item hz-edu-item--side">
         <div class="hz-edu-card hz-edu-card--compact">
           <div class="hz-edu-card__body">
             <p class="hz-edu-period">{{ entry.period }}</p>
@@ -57,7 +29,29 @@ Consumed by the deck homepage (panel #education), /about/ and /cv/.
             {% endif %}
           </div>
         </div>
-      </div>
-    </li>
+      </li>
+    {% else %}
+      <li class="hz-edu-item hz-edu-item--main">
+        <div class="hz-edu-rail" aria-hidden="true"><span class="hz-edu-marker"></span></div>
+        <div class="hz-edu-card">
+          <div class="hz-edu-card__body">
+            <p class="hz-edu-period">{{ entry.period }}</p>
+            <h3 class="hz-edu-school">
+              {% if entry.logo %}
+                <span class="hz-edu-logo">
+                  <img class="hz-edu-logo__img hz-edu-logo__img--light" src="{{ entry.logo | relative_url }}" alt="{{ entry.school }}" loading="lazy">
+                  {% if entry.logo_dark %}
+                    <img class="hz-edu-logo__img hz-edu-logo__img--dark" src="{{ entry.logo_dark | relative_url }}" alt="" aria-hidden="true" loading="lazy">
+                  {% endif %}
+                </span>
+              {% endif %}
+              <span class="hz-edu-school__name">{{ entry.school }}</span>
+            </h3>
+            <p class="hz-edu-degree">{{ entry.degree }}</p>
+            {% if entry.detail %}<p class="hz-edu-department">{{ entry.detail }}</p>{% endif %}
+          </div>
+        </div>
+      </li>
+    {% endif %}
   {% endfor %}
 </ol>

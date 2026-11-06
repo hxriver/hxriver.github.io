@@ -709,14 +709,17 @@ html[data-theme="dark"] .hz-hero-link--email {
    9. Education timeline
    -------------------------------------------------------------------------- */
 
-.hz-edu {
+/* Needs the extra specificity: `.hz-body ol` would otherwise re-apply the
+   browser's list indent and shift every measurement inside the timeline. */
+.hz-body .hz-edu {
   --edu-spine-x: 0.7rem;
   --edu-col: 1.4rem;
   --edu-gap: 1rem;
-  --edu-visit-indent: 1.35rem;
+  /* Fixed in rem on purpose: a percentage here would be resolved against
+     two different boxes (the list and the item) and the branch would
+     start in the wrong place. */
+  --edu-side-x: 33rem;
   position: relative;
-  display: grid;
-  gap: 0;
   width: 100%;
   min-width: 0;
   margin: 0.35rem 0 0;
@@ -756,20 +759,34 @@ html[data-theme="dark"] .hz-hero-link--email {
   padding: 0.35rem 0 0.75rem;
 }
 
-.hz-edu-row {
-  display: grid;
-  grid-template-columns: var(--edu-col) minmax(0, 1fr);
-  gap: var(--edu-gap);
-  align-items: center;
-  min-width: 0;
+/* Main spine — the degrees, in the order they were taken. */
+.hz-edu-item--main {
+  padding-left: calc(var(--edu-spine-x) + var(--edu-col) + var(--edu-gap));
+}
+
+/* Side branch — everything else, pulled off the spine on a dashed line and
+   parked in its own column so a side card never overlaps a main one. */
+.hz-edu-item--side {
+  margin-left: var(--edu-side-x);
+  width: calc(100% - var(--edu-side-x));
+}
+
+.hz-edu-item--side::before {
+  content: "";
+  position: absolute;
+  top: 0.62rem;
+  left: calc(-1 * (var(--edu-side-x) - var(--edu-spine-x)));
+  width: calc(var(--edu-side-x) - var(--edu-spine-x));
+  border-top: 2px dashed var(--hz-line-strong);
 }
 
 .hz-edu-rail {
-  position: relative;
+  position: absolute;
   z-index: 2;
+  top: 0.55rem;
+  left: 0;
+  width: var(--edu-col);
   display: flex;
-  align-items: center;
-  align-self: stretch;
   justify-content: center;
 }
 
@@ -791,7 +808,7 @@ html[data-theme="dark"] .hz-hero-link--email {
   align-items: center;
   gap: 0.9rem 1rem;
   min-width: 0;
-  max-width: 44rem;
+  max-width: calc(var(--edu-side-x) - 4.4rem);
   box-sizing: border-box;
   padding: 0.8rem 1.1rem 0.9rem 1.15rem;
   border: 1px solid var(--hz-line);
@@ -804,13 +821,13 @@ html[data-theme="dark"] .hz-hero-link--email {
   border-color: var(--hz-line-strong);
 }
 
-.hz-edu-card--compact {
-  padding: 0.75rem 0.95rem 0.8rem 1rem;
+.hz-edu-item--side .hz-edu-card {
+  max-width: none;
+  border-left: 2px dashed var(--hz-line-strong);
 }
 
-.hz-edu-marker--soft {
-  background: var(--hz-bg);
-  box-shadow: 0 0 0 2px var(--hz-line-strong);
+.hz-edu-card--compact {
+  padding: 0.75rem 0.95rem 0.8rem 1rem;
 }
 
 .hz-edu-highlights {
@@ -834,12 +851,46 @@ html[data-theme="dark"] .hz-hero-link--email {
 }
 
 .hz-edu-school {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
   margin: 0;
   color: var(--hz-ink);
   font-size: 1.12rem;
   font-weight: 650;
   letter-spacing: -0.01em;
   line-height: 1.3;
+}
+
+/* The school mark that sits next to the name. A fixed box with
+   `object-fit` keeps the very different aspect ratios (HKU 5:1, UWA 3:1,
+   SWU 3.6:1) from distorting the vector marks. */
+.hz-edu-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 4.6rem;
+  height: 1.45rem;
+}
+
+.hz-edu-logo__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.hz-edu-logo__img--dark {
+  display: none;
+}
+
+html[data-theme="dark"] .hz-edu-logo__img--light {
+  display: none;
+}
+
+html[data-theme="dark"] .hz-edu-logo__img--dark {
+  display: block;
 }
 
 .hz-edu-card--compact .hz-edu-school {
@@ -1267,6 +1318,67 @@ html[data-theme="dark"] .hz-hero-link--email {
   display: none;
 }
 
+/* The deck footer carries two rows: the panel switcher on top and a plain
+   index of every sub-page below it, so the homepage alone is a full index
+   of the site. */
+html[data-layout="deck"] {
+  --hz-footer-h: 5.1rem;
+}
+
+html[data-layout="deck"] .hz-footer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "nav   hint"
+    "pages hint";
+  align-content: center;
+  align-items: center;
+  gap: 0.15rem 1.25rem;
+  height: var(--hz-footer-h);
+  padding-block: 0.5rem;
+}
+
+html[data-layout="deck"] .hz-footer-nav {
+  grid-area: nav;
+}
+
+html[data-layout="deck"] .hz-footer-pages {
+  grid-area: pages;
+}
+
+html[data-layout="deck"] .hz-scroll-hint {
+  grid-area: hint;
+}
+
+.hz-footer-pages {
+  display: flex;
+  align-items: center;
+  gap: 0.1rem;
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.hz-footer-pages::-webkit-scrollbar {
+  display: none;
+}
+
+.hz-footer-pages a {
+  padding: 0.16rem 0.55rem;
+  border-radius: 999px;
+  color: var(--hz-muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.15s, background-color 0.15s;
+}
+
+.hz-footer-pages a:hover {
+  color: var(--hz-ink);
+  background: color-mix(in srgb, var(--hz-ink) 8%, transparent);
+}
+
 /* A quiet reminder that the wheel turns pages in deck mode. */
 .hz-scroll-hint {
   display: inline-flex;
@@ -1477,7 +1589,21 @@ html[data-layout="scroll"] .hz-arrow {
    15. Responsive
    -------------------------------------------------------------------------- */
 
-@media (max-width: 860px) {
+@media (max-width: 960px) {
+  /* Not enough room for two columns: the side entries tuck under the
+     main spine instead, still hanging off it on a dashed branch. */
+  .hz-body .hz-edu {
+    --edu-side-x: 3.1rem;
+  }
+
+  .hz-edu-item--main .hz-edu-card {
+    max-width: 100%;
+  }
+
+  .hz-edu-item--side .hz-edu-card {
+    border-left: 1px solid var(--hz-line);
+  }
+
   .hz-hero {
     grid-template-columns: 1fr;
     grid-template-areas:
@@ -1534,6 +1660,24 @@ html[data-layout="scroll"] .hz-arrow {
 
   .hz-edu-card {
     max-width: 100%;
+  }
+
+  .hz-edu-logo {
+    width: 4.2rem;
+    height: 1.35rem;
+  }
+
+  html[data-layout="deck"] {
+    --hz-footer-h: 4.7rem;
+  }
+
+  html[data-layout="deck"] .hz-footer {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "nav   hint"
+      "pages pages";
+    gap: 0.1rem 0.75rem;
+    padding-block: 0.4rem;
   }
 
   .hz-arrow {
