@@ -1267,6 +1267,45 @@ html[data-theme="dark"] .hz-hero-link--email {
   display: none;
 }
 
+/* A quiet reminder that the wheel turns pages in deck mode. */
+.hz-scroll-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0;
+  color: var(--hz-muted);
+  font-family: var(--hz-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.hz-scroll-hint svg {
+  width: 0.95rem;
+  height: 0.95rem;
+  animation: hz-hint-bob 2.4s ease-in-out infinite;
+}
+
+@keyframes hz-hint-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(3px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hz-scroll-hint svg {
+    animation: none;
+  }
+}
+
+html[data-layout="scroll"] .hz-scroll-hint {
+  display: none;
+}
+
 html[data-layout="scroll"] .hz-footer {
   position: static;
   inset: auto;

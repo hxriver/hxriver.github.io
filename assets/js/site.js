@@ -22,6 +22,23 @@
   var arrowNext = document.getElementById("hz-arrow-next");
   var footerLinks = [].slice.call(document.querySelectorAll(".hz-footer-nav a[data-hz-section]"));
 
+  /* Wheel / swipe -> page turn tuning */
+  var WHEEL_THRESHOLD = 60; /* px of accumulated vertical travel for one turn */
+  var WHEEL_COOLDOWN = 420; /* ms during which further input is ignored */
+  var SWIPE_THRESHOLD = 48; /* px of vertical touch travel for one turn */
+
+  var wheelAccumulator = 0;
+  var wheelLockedUntil = 0;
+  var touchStart = null;
+  var touchDelta = 0;
+
+  /* The panel we are animating towards. While a page turn is in flight the
+     deck sits between two panels, so the geometric position is ambiguous —
+     this keeps the footer highlight and the keyboard arrows on the panel the
+     reader is actually heading to. */
+  var targetIndex = null;
+  var settleTimer = null;
+
   /* --------------------------------------------------------------------
      1. Light / dark theme
      -------------------------------------------------------------------- */
@@ -81,7 +98,12 @@
   function activeIndex() {
     var list = panels();
     if (!list.length) return 0;
-    if (isDeck()) return currentIndex();
+    if (isDeck()) {
+      /* While a page turn is animating the deck sits between two panels, so
+         the geometric position is ambiguous — trust the destination. */
+      if (targetIndex !== null) return targetIndex;
+      return currentIndex();
+    }
 
     var probe = window.pageYOffset + topbarOffset() + 8;
     var index = 0;
@@ -127,6 +149,7 @@
     var list = panels();
     if (!list.length) return;
     var clamped = Math.max(0, Math.min(list.length - 1, index));
+    targetIndex = clamped;
     scrollDeckTo(list[clamped], behavior);
     setActive(clamped);
     if (window.history && window.history.replaceState) {
@@ -138,6 +161,7 @@
     /* Remember where the reader is *before* the layout changes, so switching
        back to deck mode returns to the same panel. */
     var activeId = currentId();
+    targetIndex = null;
 
     root.setAttribute("data-layout", mode);
     try {
@@ -251,6 +275,167 @@
     }
   });
 
+  /* --------------------------------------------------------------------
+     2b. Wheel / swipe paging
+     --------------------------------------------------------------------
+     In deck mode the page itself does not scroll: the panels sit side by
+     side inside a horizontally snapping container. A vertical wheel or
+     swipe therefore has to be translated into a page turn.
+
+     The rule is "scroll the content first, turn the page when the content
+     is exhausted": if the panel under the pointer still has room to scroll
+     in the direction of the gesture, the gesture scrolls it and the page
+     stays put. Only once the panel has reached its edge does the gesture
+     flip to the next panel. Without that rule the long panels
+     (Publications, News) would be unreachable in deck mode. */
+
+  /* The panel that is under the pointer, or the one on screen as a fallback. */
+  function panelAtPoint(x, y) {
+    var list = panels();
+    if (!list.length) return null;
+    if (typeof x !== "number" || typeof y !== "number") {
+      return list[activeIndex()];
+    }
+    var el = document.elementFromPoint(x, y);
+    while (el && el !== document.body) {
+      if (el.classList && el.classList.contains("hz-panel")) return el;
+      el = el.parentElement;
+    }
+    return list[activeIndex()];
+  }
+
+  /* Can this element still scroll further in the given direction?
+     `direction` is -1 for up / back, +1 for down / forward. */
+  function canScroll(el, direction) {
+    if (!el) return false;
+    var overflow = el.scrollHeight - el.clientHeight;
+    if (overflow <= 1) return false;
+    if (direction > 0) {
+      return el.scrollTop < overflow - 1;
+    }
+    return el.scrollTop > 1;
+  }
+
+  /* The scrollable ancestor of the element under the pointer — the panel
+     itself, or a nested scroller inside it. */
+  function scrollableUnder(x, y) {
+    var el = document.elementFromPoint(x, y);
+    while (el && el !== document.body && el !== document.documentElement) {
+      if (el.scrollHeight - el.clientHeight > 1) {
+        var overflowY = window.getComputedStyle(el).overflowY;
+        if (overflowY === "auto" || overflowY === "scroll") return el;
+      }
+      el = el.parentElement;
+    }
+    return null;
+  }
+
+  function turnPage(direction) {
+    var list = panels();
+    if (!list.length) return;
+    var next = activeIndex() + direction;
+    if (next < 0 || next >= list.length) return;
+    goToPanel(next);
+  }
+
+  if (deck) {
+    /* Wheel: accumulate deltaY until it crosses the threshold, then turn
+       exactly one page. The cooldown stops a single flick from skipping
+       several panels in a row.
+
+       The listener sits on the window rather than on the deck so that a
+       gesture over the fixed top bar or footer still turns the page. */
+    window.addEventListener(
+      "wheel",
+      function (e) {
+        if (!isDeck()) return;
+        if (e.ctrlKey) return; /* pinch-zoom */
+
+        var dy = e.deltaY;
+        if (!dy) return;
+
+        var dx = e.deltaX || 0;
+
+        /* A gesture that is mostly horizontal belongs to the deck's own
+           snap scrolling — leave it to the browser. */
+        if (Math.abs(dx) > Math.abs(dy)) {
+          wheelAccumulator = 0;
+          return;
+        }
+
+        var direction = dy > 0 ? 1 : -1;
+        var scroller = scrollableUnder(e.clientX, e.clientY);
+
+        /* Let the panel's own content scroll while it still can. */
+        if (canScroll(scroller, direction)) {
+          wheelAccumulator = 0;
+          return;
+        }
+
+        /* The content is exhausted, so the gesture means "next panel".
+           Stop the browser from scrolling the document underneath. */
+        e.preventDefault();
+
+        var now = Date.now();
+        if (now < wheelLockedUntil) return;
+
+        wheelAccumulator += dy;
+        if (Math.abs(wheelAccumulator) < WHEEL_THRESHOLD) return;
+
+        wheelAccumulator = 0;
+        wheelLockedUntil = now + WHEEL_COOLDOWN;
+        turnPage(direction);
+      },
+      { passive: false }
+    );
+
+    /* Touch: a vertical swipe turns the page. A horizontal swipe is left to
+       the browser so the deck keeps its native snap scrolling. */
+    window.addEventListener(
+      "touchstart",
+      function (e) {
+        if (!isDeck()) return;
+        if (e.touches.length !== 1) {
+          touchStart = null;
+          return;
+        }
+        touchStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        touchDelta = 0;
+      },
+      { passive: true }
+    );
+
+    window.addEventListener(
+      "touchmove",
+      function (e) {
+        if (!isDeck() || !touchStart || e.touches.length !== 1) return;
+        touchDelta = e.touches[0].clientY - touchStart.y;
+      },
+      { passive: true }
+    );
+
+    window.addEventListener(
+      "touchend",
+      function (e) {
+        if (!isDeck() || !touchStart) return;
+        var dy = touchDelta;
+        var dx = e.changedTouches.length
+          ? e.changedTouches[0].clientX - touchStart.x
+          : 0;
+        touchStart = null;
+        touchDelta = 0;
+
+        /* Ignore gestures that are mostly horizontal — the deck snaps on its
+           own for those. */
+        if (Math.abs(dx) > Math.abs(dy)) return;
+        if (Math.abs(dy) < SWIPE_THRESHOLD) return;
+
+        turnPage(dy < 0 ? 1 : -1);
+      },
+      { passive: true }
+    );
+  }
+
   /* Keep the footer navigation in sync with the panel that is on screen */
   if (deck) {
     var ticking = false;
@@ -260,6 +445,11 @@
       ticking = true;
       window.requestAnimationFrame(function () {
         ticking = false;
+        /* Once the deck has come to rest, the geometric position is
+           authoritative again. */
+        if (targetIndex !== null && currentIndex() === targetIndex) {
+          targetIndex = null;
+        }
         setActive(activeIndex());
       });
     }

@@ -5,7 +5,10 @@
 #   _pages/about.html        (the homepage, section #Publications)
 #   _pages/publications.html (the standalone /publications/ page)
 #
-# Schema per entry
+# Every entry below was checked against its publisher record (IEEE Xplore,
+# Crossref, ACL Anthology, Google Patents) and every listed link was taken
+# from that record. The schema is:
+#
 #   title    : string, required
 #   authors  : string, required — wrap the author to emphasise in **...**
 #   venue    : string, required (journal / conference abbreviation)
@@ -17,62 +20,119 @@
 # ---------------------------------------------------------------------------
 
 journal:
-  - title: "HKPIM: A Hybrid Kernel-fused Processing-In-Memory Framework for Efficient Large Language Model Inference"
-    authors: "**H. Xiao**, H. Liu, D. Cheng, W. Xu, J. Xiong, Z. Liu, N. Wong"
-    venue: "IEEE TCAD"
+  - title: "High-Performance Method and Architecture for Attention Computation in DNN Inference"
+    authors: "Q. Cheng, X. Hu, **H. Xiao**, Y. Zhou, S. Duan"
+    venue: "IEEE TBCAS"
+    locator: "19(2):404–415"
     year: 2025
     tag: "Journal"
-    note: "Under review"
+    links:
+      - label: "IEEE"
+        url: "https://ieeexplore.ieee.org/document/10620016"
+      - label: "DOI"
+        url: "https://doi.org/10.1109/TBCAS.2024.3436837"
+
+  - title: "Neuromorphic Vision Restoration Network for Advanced Driver Assistance System"
+    authors: "D. Xie, **H. Xiao**, X. Hu, Y. Zhou, G. Zhou, S. Duan"
+    venue: "IEEE TCE"
+    locator: "70(1):3658–3668"
+    year: 2024
+    tag: "Journal"
+    links:
+      - label: "IEEE"
+        url: "https://ieeexplore.ieee.org/document/10440515"
+      - label: "DOI"
+        url: "https://doi.org/10.1109/TCE.2024.3367728"
 
   - title: "Brain-Inspired Recognition System Based on Multimodal In-Memory Computing Framework for Edge AI"
-    authors: "**H. Xiao**, D. Xie, X. Hu, Y. Zhou, S. Duan"
+    authors: "**H. Xiao**, D. Xie, X. Hu, Y. Zhou, G. Zhou, S. Duan"
     venue: "IEEE TCAS-I"
     locator: "71(5):2294–2307"
     year: 2024
     tag: "Journal"
+    links:
+      - label: "IEEE"
+        url: "https://ieeexplore.ieee.org/document/10355670"
+      - label: "DOI"
+        url: "https://doi.org/10.1109/TCSI.2023.3337532"
 
-  - title: "Efficient Low-bit Neural Network with Memristor-Based Reconfigurable Circuits"
+  - title: "Efficient Low-Bit Neural Network With Memristor-Based Reconfigurable Circuits"
     authors: "**H. Xiao**, X. Hu, T. Gao, Y. Zhou, S. Duan, Y. Chen"
     venue: "IEEE TCAS-II"
     locator: "71(1):66–70"
     year: 2024
     tag: "Journal"
+    links:
+      - label: "IEEE"
+        url: "https://ieeexplore.ieee.org/document/10195198"
+      - label: "DOI"
+        url: "https://doi.org/10.1109/TCSII.2023.3298910"
 
-  - title: "Memristor-Based Light-Weight Transformer Circuit Implementation for Speech Recognition"
+  - title: "Memristor-Based Light-Weight Transformer Circuit Implementation for Speech Recognizing"
     authors: "**H. Xiao**, Y. Zhou, T. Gao, S. Duan, G. Chen, X. Hu"
     venue: "IEEE JETCAS"
     locator: "13(1):344–356"
     year: 2023
     tag: "Journal"
+    links:
+      - label: "IEEE"
+        url: "https://ieeexplore.ieee.org/document/10018397"
+      - label: "DOI"
+        url: "https://doi.org/10.1109/JETCAS.2023.3237582"
 
-  - title: "Pure-Attention-Based Multi-Function Memristive Neuromorphic Circuit and System"
+  - title: "Pure-Attention-Based Multifunction Memristive Neuromorphic Circuit and System"
     authors: "**H. Xiao**, H. Sun, T. Zhao, Y. Zhou, X. Hu"
     venue: "Int. J. Bifurcation Chaos"
     locator: "33(9):2330023"
     year: 2023
     tag: "Journal"
+    links:
+      - label: "DOI"
+        url: "https://doi.org/10.1142/S0218127423300239"
 
 conference:
-  - title: "TIA: Token-Aware In-Memory Attention Architecture for Large Language Models"
-    authors: "**H. Xiao**, H. Liu, D. Cheng, W. Xu, J. Xiong, Z. Liu, N. Wong"
-    venue: ""
-    year: 2026
-    tag: "Preprint"
-    note: "Under review"
-
   - title: "Exploring Layer-wise Information Effectiveness for Post-Training Quantization in Small Language Models"
-    authors: "**H. Xiao**, Q. Yang, D. Xie, W. Xu, W. Zhou, H. Liu, Z. Liu, N. Wong"
-    venue: "AAAI"
+    authors: "**H. Xiao**, Q. Yang, D. Xie, W. Xu, Z. Su, R. Yang, H. Liu, W. Zhou, Z. Liu, N. Wong"
+    venue: "ACL 2026 Findings"
+    locator: "15753–15764"
     year: 2026
-    tag: "Preprint"
-    note: "Under review"
+    tag: "Conference"
+    note: "Findings"
     links:
+      - label: "ACL"
+        url: "https://aclanthology.org/2026.findings-acl.771/"
       - label: "arXiv"
         url: "https://arxiv.org/abs/2508.03332"
 
+  - title: "A Unified Compute-In-Memory Framework for Multisensory Emotion Recognition"
+    authors: "**H. Xiao**, Y. Zhou, D. Xie, Q. Cheng, X. Hu, Z. Liu, N. Wong"
+    venue: "ASP-DAC"
+    locator: "1329–1335"
+    year: 2026
+    tag: "Conference"
+    note: "Poster"
+    links:
+      - label: "IEEE"
+        url: "https://ieeexplore.ieee.org/document/11420499"
+      - label: "DOI"
+        url: "https://doi.org/10.1109/ASP-DAC66049.2026.11420499"
+
+  - title: "Brain-Inspired Quantized Spiking Neural Networks with Efficient Analog Neurons"
+    authors: "**H. Xiao**, H. Liu, Z. Liu, N. Wong"
+    venue: "MIND"
+    locator: "245–246"
+    year: 2025
+    tag: "Conference"
+    note: "Best poster"
+    links:
+      - label: "IEEE"
+        url: "https://ieeexplore.ieee.org/document/11351731"
+      - label: "DOI"
+        url: "https://doi.org/10.1109/MIND67540.2025.11351731"
+
   - title: "PTQTP: Post-Training Quantization to Trit-Planes for Large Language Models"
     authors: "**H. Xiao**, R. Yang, Q. Yang, W. Xu, Z. Li, Y. Su, Z. Liu, H. Yang, N. Wong"
-    venue: "NeurIPS"
+    venue: ""
     year: 2025
     tag: "Preprint"
     note: "Under review"
@@ -80,38 +140,36 @@ conference:
       - label: "arXiv"
         url: "https://arxiv.org/abs/2509.16989"
 
-  - title: "A Unified Compute-In-Memory Framework for Multisensory Emotion Recognition"
-    authors: "**H. Xiao**, Y. Zhou, D. Xie, Q. Cheng, X. Hu, Z. Liu, N. Wong"
-    venue: "ASP-DAC"
-    year: 2025
-    tag: "Conference"
-    note: "Poster"
-
-  - title: "Brain-Inspired Quantized Spiking Neural Networks with Efficient Analog Neurons"
-    authors: "**H. Xiao**, H. Liu, Z. Liu, N. Wong"
-    venue: "MIND"
-    year: 2025
-    tag: "Conference"
-    note: "Best poster"
-
 patents:
-  - title: "Speech Recognition System Based on Light-Weight Transformer"
+  - title: "Speech Recognition System and Method Based on a Lightweight Transformer Network"
     authors: "Y. Zhou, **H. Xiao**, X. Hu, H. Hong, S. Duan"
     venue: "Chinese Patent"
-    locator: "ZL 2023 1 0065728.1"
-    year: 2023
+    locator: "CN116013309B"
+    year: 2025
     tag: "Patent"
+    note: "Granted"
+    links:
+      - label: "Google Patents"
+        url: "https://patents.google.com/patent/CN116013309B/en"
 
-  - title: "Memristor-Based Text Sentiment Detection System"
+  - title: "Memristor-Based Text Sentiment Detection System and Method"
     authors: "Y. Zhou, **H. Xiao**, X. Hu, H. Hong, S. Duan"
     venue: "Chinese Patent"
-    locator: "ZL 2023 1 0091466.6"
-    year: 2023
+    locator: "CN115994221B"
+    year: 2025
     tag: "Patent"
+    note: "Granted"
+    links:
+      - label: "Google Patents"
+        url: "https://patents.google.com/patent/CN115994221B/en"
 
-  - title: "Image Restoration Method Based on Brain-Inspired Vision Transformer for Edge ADAS Devices"
+  - title: "Image Restoration Method Based on a Brain-Inspired Vision Transformer and ADAS Edge Devices"
     authors: "X. Hu, D. Xie, Y. Zhou, **H. Xiao**"
     venue: "Chinese Patent"
-    locator: "ZL 2023 1 1466352.1"
-    year: 2023
+    locator: "CN117392020B"
+    year: 2025
     tag: "Patent"
+    note: "Granted"
+    links:
+      - label: "Google Patents"
+        url: "https://patents.google.com/patent/CN117392020B/en"

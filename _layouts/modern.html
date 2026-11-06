@@ -149,6 +149,14 @@ sitemap: false
           {{ site.author.name }} · {{ site.author.employer }} ·
           <a href="{{ '/sitemap/' | relative_url }}">All pages</a>
         </p>
+        <p class="hz-scroll-hint" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="8" y="3" width="8" height="14" rx="4"></rect>
+            <path d="M12 7v3"></path>
+            <path d="M9 20l3 2 3-2"></path>
+          </svg>
+          <span>Scroll to page</span>
+        </p>
       {% else %}
         <nav class="hz-footer-nav" aria-label="Site pages">
           <a href="{{ '/' | relative_url }}" {% if url == '/' %}aria-current="true"{% endif %}>Home</a>
