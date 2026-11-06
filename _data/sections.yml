@@ -5,9 +5,14 @@
 #   _pages/about.html     (renders one <section class="hz-panel"> per entry)
 #   _layouts/modern.html  (renders the footer section navigation)
 #
+# The homepage is four panels: About, Research (research directions plus
+# the news feed), Education & Work (the timeline plus awards and service)
+# and Publications.
+#
 # `collection` marks a panel that only appears once the matching Jekyll
 # collection has at least one entry — so empty sections never leave a blank
-# panel or a dead footer link behind.
+# panel or a dead footer link behind. The three collections below are still
+# empty, so they add nothing to the page today.
 # ---------------------------------------------------------------------------
 
 - id: about
@@ -33,9 +38,3 @@
 - id: teaching
   label: "Teaching"
   collection: "teaching"
-
-- id: honors
-  label: "Awards & Service"
-
-- id: news
-  label: "News"

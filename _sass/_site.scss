@@ -925,7 +925,8 @@ html[data-theme="dark"] .hz-edu-logo__img--dark {
   margin-top: 2.25rem;
 }
 
-.hz-pub-group h3 {
+.hz-pub-group h3,
+.hz-pub-group h4 {
   display: flex;
   align-items: center;
   gap: 0.6rem;
@@ -936,13 +937,31 @@ html[data-theme="dark"] .hz-edu-logo__img--dark {
   letter-spacing: 0.04em;
 }
 
-.hz-pub-group h3 .hz-count {
+.hz-pub-group h3 .hz-count,
+.hz-pub-group h4 .hz-count {
   padding: 0.1rem 0.55rem;
   border-radius: 999px;
   background: var(--hz-accent-soft);
   color: var(--hz-accent-ink);
   font-family: var(--hz-mono);
   font-size: 0.78rem;
+}
+
+/* A second block inside a panel — the news feed under Research, awards
+   and service under Education & Work. */
+.hz-subsection {
+  margin-top: 2.75rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--hz-line);
+}
+
+.hz-subsection__title {
+  margin: 0 0 1.1rem;
+  color: var(--hz-ink);
+  font-size: 1.2rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
 }
 
 .hz-pub-list {
