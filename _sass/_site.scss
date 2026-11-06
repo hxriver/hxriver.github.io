@@ -1318,19 +1318,6 @@ html[data-theme="dark"] .hz-edu-logo__img--dark {
   display: none;
 }
 
-/* The deck footer is a single row: the panel switcher, plus one link that
-   opens the full page index. */
-.hz-footer-nav__all {
-  margin-left: 0.6rem;
-  padding-left: 0.9rem !important;
-  border-left: 1px solid var(--hz-line);
-  color: var(--hz-muted) !important;
-}
-
-.hz-footer-nav__all:hover {
-  color: var(--hz-ink) !important;
-}
-
 /* A quiet reminder that the wheel turns pages in deck mode. */
 .hz-scroll-hint {
   display: inline-flex;
