@@ -1318,65 +1318,17 @@ html[data-theme="dark"] .hz-edu-logo__img--dark {
   display: none;
 }
 
-/* The deck footer carries two rows: the panel switcher on top and a plain
-   index of every sub-page below it, so the homepage alone is a full index
-   of the site. */
-html[data-layout="deck"] {
-  --hz-footer-h: 5.1rem;
+/* The deck footer is a single row: the panel switcher, plus one link that
+   opens the full page index. */
+.hz-footer-nav__all {
+  margin-left: 0.6rem;
+  padding-left: 0.9rem !important;
+  border-left: 1px solid var(--hz-line);
+  color: var(--hz-muted) !important;
 }
 
-html[data-layout="deck"] .hz-footer {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  grid-template-areas:
-    "nav   hint"
-    "pages hint";
-  align-content: center;
-  align-items: center;
-  gap: 0.15rem 1.25rem;
-  height: var(--hz-footer-h);
-  padding-block: 0.5rem;
-}
-
-html[data-layout="deck"] .hz-footer-nav {
-  grid-area: nav;
-}
-
-html[data-layout="deck"] .hz-footer-pages {
-  grid-area: pages;
-}
-
-html[data-layout="deck"] .hz-scroll-hint {
-  grid-area: hint;
-}
-
-.hz-footer-pages {
-  display: flex;
-  align-items: center;
-  gap: 0.1rem;
-  max-width: 100%;
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-
-.hz-footer-pages::-webkit-scrollbar {
-  display: none;
-}
-
-.hz-footer-pages a {
-  padding: 0.16rem 0.55rem;
-  border-radius: 999px;
-  color: var(--hz-muted);
-  font-size: 0.75rem;
-  letter-spacing: 0.01em;
-  text-decoration: none;
-  white-space: nowrap;
-  transition: color 0.15s, background-color 0.15s;
-}
-
-.hz-footer-pages a:hover {
-  color: var(--hz-ink);
-  background: color-mix(in srgb, var(--hz-ink) 8%, transparent);
+.hz-footer-nav__all:hover {
+  color: var(--hz-ink) !important;
 }
 
 /* A quiet reminder that the wheel turns pages in deck mode. */
@@ -1665,19 +1617,6 @@ html[data-layout="scroll"] .hz-arrow {
   .hz-edu-logo {
     width: 4.2rem;
     height: 1.35rem;
-  }
-
-  html[data-layout="deck"] {
-    --hz-footer-h: 4.7rem;
-  }
-
-  html[data-layout="deck"] .hz-footer {
-    grid-template-columns: minmax(0, 1fr) auto;
-    grid-template-areas:
-      "nav   hint"
-      "pages pages";
-    gap: 0.1rem 0.75rem;
-    padding-block: 0.4rem;
   }
 
   .hz-arrow {

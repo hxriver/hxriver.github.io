@@ -140,26 +140,11 @@ sitemap: false
               <a href="#{{ section.id }}" data-hz-section="{{ section.id }}">{{ section.label }}</a>
             {% endif %}
           {% endfor %}
+          <a class="hz-footer-nav__all" href="{{ '/sitemap/' | relative_url }}">All pages &rsaquo;</a>
         </nav>
         <p class="hz-footer-meta">
           {{ site.author.name }} · {{ site.author.employer }}
         </p>
-
-        {% comment %}
-          Every sub-page of the site, so the homepage is a complete index:
-          the panel navigation above only covers what is on the deck.
-        {% endcomment %}
-        <nav class="hz-footer-pages" aria-label="All pages">
-          <a href="{{ '/about/' | relative_url }}">About</a>
-          <a href="{{ '/publications/' | relative_url }}">Publications</a>
-          <a href="{{ '/news/' | relative_url }}">News</a>
-          <a href="{{ '/projects/' | relative_url }}">Projects</a>
-          <a href="{{ '/talks/' | relative_url }}">Talks</a>
-          <a href="{{ '/teaching/' | relative_url }}">Teaching</a>
-          <a href="{{ '/blog/' | relative_url }}">Blog</a>
-          <a href="{{ '/files/CV.pdf' | relative_url }}">CV (PDF)</a>
-          <a href="{{ '/sitemap/' | relative_url }}">Sitemap</a>
-        </nav>
 
         <p class="hz-scroll-hint" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
